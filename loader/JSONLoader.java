@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -36,7 +37,6 @@ public class JSONLoader {
 		catch(IOException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -48,6 +48,17 @@ public class JSONLoader {
 		List<String> keys = new ArrayList<String>(jsonData.keySet());
 		
 		return keys;
+	}
+	
+	/** Finds the corresponding exits for the provided room.
+	 * */
+	public HashMap<String, String> getRoomExits(String roomName){
+		
+		JSONObject room = (JSONObject) jsonData.get(roomName);
+		
+		HashMap<String, String> exits = (HashMap<String, String>) room.get("exits");
+		
+		return exits;
 	}
 	
 	/** Finds the corresponding room in the JSON file, gets its description and returns back to the player.

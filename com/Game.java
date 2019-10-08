@@ -14,27 +14,32 @@ import entities.Room;
 import loader.JSONLoader;
 import output.Mode;
 import output.OutputHandler;
+import parser.CommandHandler;
 import parser.Parser;
 
 public class Game {
 	
 	private State gameState;
 	private Parser parser = new Parser();
+	private CommandHandler commandHandler;
 
 	private Room currentRoom;
 	private HashMap<String, Room> allRooms = new HashMap<String, Room>();
 	
+	// The games data file. Contains information about rooms, exits and items.
 	private JSONLoader loader = new JSONLoader("res/roomData.json");
 	
 	public Game() {
 		
+		commandHandler = new CommandHandler(this);
+		
 		this.gameState = State.PLAY;
 		
 		this.loadRooms();
-		
-		// OutputHandler.output(loader.getRoomDescription("Courtyard"), Mode.CONSOLE);
 	}
 	
+	/** Runs the game and checks for State updates.
+	 * */
 	public void play() {
 		
 		this.welcomeMessage();
@@ -42,7 +47,7 @@ public class Game {
 		while(gameState == State.PLAY) {
 		
 			// Else run the game.
-			this.processInput();
+			commandHandler.handle(parser);
 		}
 	}
 	
@@ -54,12 +59,13 @@ public class Game {
 		
 		for(int i = 0; i < roomNames.size(); i++) {
 			
-			// OutputHandler.output(roomNames.get(i), Mode.CONSOLE);
-			
+			// Get the room  name and description from the JSON file.
 			String roomName = roomNames.get(i);
 			String roomDesc = loader.getRoomDescription(roomName);
 			
-			Room room = new Room(roomName, roomDesc);
+			HashMap<String, String> exits = loader.getRoomExits(roomName);
+			
+			Room room = new Room(roomName, roomDesc, exits);
 			allRooms.put(roomName, room);
 		}
 		
@@ -72,37 +78,41 @@ public class Game {
 	 * */
 	private void welcomeMessage() {
 		
-		OutputHandler.output("Welcome traveller, to the World of Zuul!\nYou are in: " + this.currentRoom.getName(), Mode.CONSOLE);
+		OutputHandler.output("Welcome traveller, to the World of Zuul!\nYou are in: " + this.currentRoom.getName() + "\nFor hints you can type  'help'.", Mode.CONSOLE);
 	}
 	
-	/**
-	 * Processes the users input. Will execute different commands based on what the user says.
+	/** Returns the games current State, i.e. PAUSE, PLAY, QUIT etc.
 	 * */
-	private void processInput() {
+	public State getGameState() {
 		
-		String[] userInput = parser.getUserInput();
+		return this.gameState;
+	}
+	
+	/** Updates the games State, used to transition from PLAY -> QUIT, PLAY -> PAUSE etc.
+	 * */
+	public void updateGameState(State state) {
 		
-		int inputLength = userInput.length;
-			
-		if(userInput[0].equals("look")) {
-			
-			OutputHandler.output(this.currentRoom.getDescription(), Mode.CONSOLE);
-		}
-		else if(userInput[0].equals("quit")) {
-			
-			OutputHandler.output("Cya!", Mode.CONSOLE);
-			this.gameState = State.QUIT;
-		}
+		this.gameState = state;
+	}
+	
+	/** Returns the current Room object. I.e. the current room the player is in.
+	 * */
+	public Room getCurrentRoom() {
 		
-		else if(userInput[0].equals("pause")) {
-			
-			OutputHandler.output("Game paused. Type resume to continue.", Mode.CONSOLE);
-			this.gameState = State.PAUSE;
-		}
-		else {
-			
-			// Fallback, we don't understand the users command.
-			OutputHandler.output("I'm sorry, I dont know what you mean by: '" + userInput[0] + "'", Mode.CONSOLE);
-		}
+		return this.currentRoom;
+	}
+	
+	/** Updates the current Room object. Allows the player to move from one room to another by taking exits.
+	 * */
+	public void updatCurrentRoom(Room room) {
+		
+		this.currentRoom = room;
+	}
+	
+	/** Returns the entire list of Rooms avilable in the game.
+	 * */
+	public HashMap<String, Room> getAllRooms(){
+		
+		return this.allRooms;
 	}
 }
