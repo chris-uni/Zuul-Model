@@ -10,11 +10,11 @@ package com;
 import java.util.HashMap;
 import java.util.List;
 
+import commands.CommandHandler;
 import entities.Room;
 import loader.JSONLoader;
 import output.Mode;
 import output.OutputHandler;
-import parser.CommandHandler;
 import parser.Parser;
 
 public class Game {
@@ -47,7 +47,7 @@ public class Game {
 		while(gameState == State.PLAY) {
 		
 			// Else run the game.
-			commandHandler.handle(parser);
+			commandHandler.handleCommand(parser);
 		}
 	}
 	
