@@ -11,14 +11,17 @@ import java.util.HashMap;
 import java.util.List;
 
 import commands.CommandHandler;
+import entities.Item;
 import entities.Room;
 import loader.JSONLoader;
 import output.Mode;
 import output.OutputHandler;
 import parser.Parser;
+import player.Player;
 
 public class Game {
 	
+	private Player player;
 	private State gameState;
 	private Parser parser = new Parser();
 	private CommandHandler commandHandler;
@@ -30,6 +33,8 @@ public class Game {
 	private JSONLoader loader = new JSONLoader("res/roomData.json");
 	
 	public Game() {
+		
+		this.player = new Player();
 		
 		commandHandler = new CommandHandler(this);
 		
@@ -65,7 +70,20 @@ public class Game {
 			
 			HashMap<String, String> exits = loader.getRoomExits(roomName);
 			
-			Room room = new Room(roomName, roomDesc, exits);
+			// For the current room in the JSON file, the below loads the items it has.
+			List<String> itemKeys = loader.getItemKeys(roomName);
+			HashMap<String, Item> items = new HashMap<String, Item>();
+			
+			for(String itemName : itemKeys) {
+				
+				String[] itemInfo = loader.getRoomItems(roomName, itemName);
+				String description = itemInfo[0];
+				int weight = Integer.parseInt(itemInfo[1].toString());
+				
+				items.put(itemName, new Item(itemName, description, weight));
+			}
+			
+			Room room = new Room(roomName, roomDesc, exits, items);
 			allRooms.put(roomName, room);
 		}
 		
@@ -95,6 +113,13 @@ public class Game {
 		this.gameState = state;
 	}
 	
+	/** Returns the player object.
+	 * */
+	public Player getPlayer() {
+		
+		return this.player;
+	}
+	
 	/** Returns the current Room object. I.e. the current room the player is in.
 	 * */
 	public Room getCurrentRoom() {
@@ -109,7 +134,7 @@ public class Game {
 		this.currentRoom = room;
 	}
 	
-	/** Returns the entire list of Rooms avilable in the game.
+	/** Returns the entire list of Rooms available in the game.
 	 * */
 	public HashMap<String, Room> getAllRooms(){
 		

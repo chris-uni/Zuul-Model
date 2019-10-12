@@ -8,12 +8,14 @@ public class Room {
 	private String name;
 	private String description;
 	private HashMap<String, String> exits;
+	private HashMap<String, Item> items;
 	
-	public Room(String name, String description, HashMap<String, String> exits) {
+	public Room(String name, String description, HashMap<String, String> exits, HashMap<String, Item> items) {
 		
 		this.name = name;
 		this.description = description;
 		this.exits = exits;
+		this.items = items;
 	}
 	
 	/** Adds all possible exists to a particular room.
@@ -45,6 +47,33 @@ public class Room {
 		}
 		
 		return exits.trim();
+	}
+	
+	/** Returns the list of items in this room.
+	 * */
+	public HashMap<String, Item> getItems(){
+		
+		return this.items;
+	}
+	
+	/** Will iterate over the list of items in this room, grab the items name, desc and weight, format the items information into a string and then return the total string. Used within the 'Look' command.
+	 * */
+	public String getItemsAsString() {
+		
+		String items = "";
+		
+		for(Map.Entry<String, Item> e : this.items.entrySet()) {
+			
+			Item item = e.getValue();
+			
+			String name = item.getName();
+			String desc = item.getDescription();
+			int weight = item.getWeight();
+			
+			items += name + "(" + weight + ")" + ", " + desc + "\n";
+		}
+		
+		return items.trim();
 	}
 	
 	/** Returns the room at exits 'direction'.

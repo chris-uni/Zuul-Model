@@ -50,6 +50,15 @@ public class JSONLoader {
 		return keys;
 	}
 	
+	/** Finds the corresponding room in the JSON file, gets its description and returns back to the player.
+	 * */
+	public String getRoomDescription(String roomName) {
+		
+		JSONObject room = (JSONObject) jsonData.get(roomName);
+		
+		return (String) room.get("description");
+	}
+	
 	/** Finds the corresponding exits for the provided room.
 	 * */
 	public HashMap<String, String> getRoomExits(String roomName){
@@ -61,12 +70,30 @@ public class JSONLoader {
 		return exits;
 	}
 	
-	/** Finds the corresponding room in the JSON file, gets its description and returns back to the player.
+	/** Returns the name of each item for any given room.
 	 * */
-	public String getRoomDescription(String roomName) {
+	public List<String> getItemKeys(String roomName){
 		
+		// Gets the room.
 		JSONObject room = (JSONObject) jsonData.get(roomName);
+		JSONObject items = (JSONObject) room.get("items");
 		
-		return (String) room.get("description");
+		List<String> keys = new ArrayList<String>(items.keySet());
+		
+		return keys;
+	}
+	
+	public String[] getRoomItems(String roomName, String itemKey){
+		
+		// Gets the room.
+		JSONObject room = (JSONObject) jsonData.get(roomName);
+		JSONObject items = (JSONObject) room.get("items");
+		
+		JSONObject item = (JSONObject) items.get(itemKey);
+		
+		String description = item.get("description").toString();
+		String weight = item.get("weight").toString();
+		
+		return new String[]{description, weight};
 	}
 }
