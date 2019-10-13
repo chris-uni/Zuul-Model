@@ -62,18 +62,26 @@ public class Room {
 		
 		String items = "";
 		
-		for(Map.Entry<String, Item> e : this.items.entrySet()) {
+		if(this.items.size() == 0) {
 			
-			Item item = e.getValue();
-			
-			String name = item.getName();
-			String desc = item.getDescription();
-			int weight = item.getWeight();
-			
-			items += name + "(" + weight + ")" + ", " + desc + "\n";
+			return "no items!";
 		}
-		
-		return items.trim();
+		else {
+			
+			for(Map.Entry<String, Item> e : this.items.entrySet()) {
+				
+				Item item = e.getValue();
+				
+				String name = item.getName();
+				String desc = item.getDescription();
+				int weight = item.getWeight();
+				
+				items += name + "(" + weight + ")" + ", " + desc + "\n";
+			}
+			
+			return items.trim();
+		}
+
 	}
 	
 	/** Returns the room at exits 'direction'.

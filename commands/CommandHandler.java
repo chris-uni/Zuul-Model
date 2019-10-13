@@ -28,24 +28,27 @@ public class CommandHandler {
 		// The input from the user via the command line.
 		String[] userInput = parser.getUserInput();
 		
-		// The first word of the users command string. We will be comparing this to the available commands in pkg commands.
-		// Formats it to match the class name of commands, i.e. first letter is uppercase.
-		String firstWord = formatCommand(userInput[0]);
-		
-		try {
+
 			
-			// Based on what the user inputs, we generate a new command object for that specific comamnd.
-			ICommand command = this.commandFactory(firstWord);
+			// The first word of the users command string. We will be comparing this to the available commands in pkg commands.
+			// Formats it to match the class name of commands, i.e. first letter is uppercase.
+			String firstWord = formatCommand(userInput[0]);
 			
-			// Now we execute that command.
-			command.execute(this.game, userInput);
-			
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
-			
-			// In the case the the user tries to get funny and input a command that actually isnt in the game, give them an error message.
-			OutputHandler.output("Error, not a valid command!", Mode.CONSOLE);
-		}
+			try {
+				
+				// Based on what the user inputs, we generate a new command object for that specific comamnd.
+				ICommand command = this.commandFactory(firstWord);
+				
+				// Now we execute that command.
+				command.execute(this.game, userInput);
+				
+			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+				
+				// In the case the the user tries to get funny and input a command that actually isnt in the game, give them an error message.
+				OutputHandler.output("Sorry, I'm not sure what you mean by '" + userInput[0] + "'", Mode.CONSOLE);
+			}
+
 	}
 	
 	/** Will simply attempt to create a new instance of class 'commands.valid.ClassName'.
@@ -65,6 +68,11 @@ public class CommandHandler {
 	 * i.e. turns 'look' into 'Look' to match the class 'commands.valid.Look'.
 	 * */
 	private String formatCommand(String word) {
+		
+		if(word.contentEquals("")) {
+			
+			return "Error";
+		}
 		
 		return word.substring(0, 1).toUpperCase() + word.substring(1);
 	}

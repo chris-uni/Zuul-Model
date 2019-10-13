@@ -74,6 +74,7 @@ public class Game {
 			List<String> itemKeys = loader.getItemKeys(roomName);
 			HashMap<String, Item> items = new HashMap<String, Item>();
 			
+			// For every item in the items key within the JSON file.
 			for(String itemName : itemKeys) {
 				
 				String[] itemInfo = loader.getRoomItems(roomName, itemName);
