@@ -9,6 +9,7 @@ package com;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import commands.CommandHandler;
 import entities.Item;
@@ -74,17 +75,30 @@ public class Game {
 			List<String> itemKeys = loader.getItemKeys(roomName);
 			HashMap<String, Item> items = new HashMap<String, Item>();
 			
+			/*
+			 * HashMap<String, String> npcs = loader.getRoomNPCS(roomName);
+			 * 
+			 * for(Map.Entry<String, String> e : npcs.entrySet()) {
+			 * 
+			 * String name = e.getKey(); String dialog = e.getValue();
+			 * 
+			 * OutputHandler.output("In room " + roomName + " we have npc: " + name, Mode.CONSOLE); 
+			 * }
+			 */
+			
 			// For every item in the items key within the JSON file.
+			
 			for(String itemName : itemKeys) {
-				
+			
 				String[] itemInfo = loader.getRoomItems(roomName, itemName);
+				
 				String description = itemInfo[0];
 				int weight = Integer.parseInt(itemInfo[1].toString());
 				
 				items.put(itemName, new Item(itemName, description, weight));
 			}
 			
-			Room room = new Room(roomName, roomDesc, exits, items);
+			Room room = new Room(roomName, roomDesc, exits, items); // Need to think about best way to load this into the game.
 			allRooms.put(roomName, room);
 		}
 		

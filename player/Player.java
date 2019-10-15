@@ -18,6 +18,11 @@ public class Player {
 		this.inventory.addItem(item);
 	}
 	
+	public void removeItem(Item item) {
+		
+		this.inventory.removeItem(item);
+	}
+	
 	/** Returns the players inventory.
 	 * */
 	public Inventory getInventory() {

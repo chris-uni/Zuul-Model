@@ -9,6 +9,7 @@ public class Room {
 	private String description;
 	private HashMap<String, String> exits;
 	private HashMap<String, Item> items;
+	private HashMap<String, NPC> npcs;
 	
 	public Room(String name, String description, HashMap<String, String> exits, HashMap<String, Item> items) {
 		
@@ -16,6 +17,7 @@ public class Room {
 		this.description = description;
 		this.exits = exits;
 		this.items = items;
+		//this.npcs = npcs;
 	}
 	
 	/** Adds all possible exists to a particular room.
@@ -54,6 +56,13 @@ public class Room {
 	public HashMap<String, Item> getItems(){
 		
 		return this.items;
+	}
+	
+	/** Used when a player is dropping items. The player will drop (remove it from inventory) and add it to their current room.
+	 * */
+	public void addItem(Item item) {
+		
+		this.items.put(item.getName(), item);
 	}
 	
 	/** Will iterate over the list of items in this room, grab the items name, desc and weight, format the items information into a string and then return the total string. Used within the 'Look' command.

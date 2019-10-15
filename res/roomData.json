@@ -1,0 +1,42 @@
+{
+  "rooms": {
+
+    "Courtyard": {
+      "description": "The courtyard is empty, it looks abandoned.",
+      "exits": {
+        "north": "CornwallisN",
+        "south": "CornwallisS",
+        "east": "Cinema",
+        "west": "CornwallisW"
+      },
+      "items" : {
+      	"Sword" : {
+      		"description" : "a sharp looking sword.",
+      		"weight" : 1
+      	}
+      },
+      "npcs" : {
+      	"name" : "Richard",
+      	"dialog" : "Beware traveller of the Cinema!"
+      }
+    },
+    
+    "Cinema": {
+      "description": "The cinema is abandoned. You can only imagine what it was like back in the day.",
+      "exits": {
+        "north": "CornwallisNE",
+        "west": "Courtyard"
+      },
+      "items" : {
+      	"Bat" : {
+      		"description" : "once used in games of cricket.",
+      		"weight" : 1
+      	}
+      },
+      "npcs" : {
+      	"name" : "Richard",
+      	"dialog" : "Beware traveller of the Cinema!"
+      }
+    }
+  }
+}

@@ -41,6 +41,8 @@ public class JSONLoader {
 		}
 	}
 	
+	// Room section.
+	
 	/** Returns the top level JSON Objects in the data file. In this case the top level objects are the room names. Courtyard, Cinema etc.
 	 * */
 	public List<String> getAllRooms() {
@@ -59,6 +61,8 @@ public class JSONLoader {
 		return (String) room.get("description");
 	}
 	
+	// Exit section.
+	
 	/** Finds the corresponding exits for the provided room.
 	 * */
 	public HashMap<String, String> getRoomExits(String roomName){
@@ -69,6 +73,8 @@ public class JSONLoader {
 		
 		return exits;
 	}
+	
+	// Item section.
 	
 	/** Returns the name of each item for any given room.
 	 * */
@@ -83,6 +89,8 @@ public class JSONLoader {
 		return keys;
 	}
 	
+	/** Based on an items key, will load its information (description, weight etc).
+	 * */
 	public String[] getRoomItems(String roomName, String itemKey){
 		
 		// Gets the room.
@@ -95,5 +103,18 @@ public class JSONLoader {
 		String weight = item.get("weight").toString();
 		
 		return new String[]{description, weight};
+	}
+	
+	// NPC section.
+	
+	/** Finds the corresponding npcs for any given room. Returns a list of the entry keys.
+	 * */
+	public HashMap<String, String> getRoomNPCS(String roomName){
+		
+		JSONObject room = (JSONObject) jsonData.get(roomName);
+		
+		HashMap<String, String> npcs = (HashMap<String, String>) room.get("npcs");
+		
+		return npcs;
 	}
 }

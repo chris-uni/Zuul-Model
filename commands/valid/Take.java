@@ -10,6 +10,7 @@ import entities.Room;
 import output.Mode;
 import output.OutputHandler;
 import player.Player;
+import tools.Tools;
 
 public class Take implements ICommand{
 
@@ -34,7 +35,7 @@ public class Take implements ICommand{
 		}
 		else{
 			
-			String itemName = this.formatItemName(userInput[1]);
+			String itemName = Tools.firstLetterToCapital(userInput[1]);
 			
 			HashMap<String, Item> roomItems = currentRoom.getItems();
 			
@@ -43,21 +44,11 @@ public class Take implements ICommand{
 				
 				player.addItem(roomItems.get(itemName));
 				currentRoom.getItems().remove(itemName);
-				
-				OutputHandler.output("Successfully taken the " + itemName + "!", Mode.CONSOLE);
 			}
 			else {
 				
 				OutputHandler.output("Error, '" + itemName + "' is not an item in this room!", Mode.CONSOLE);
 			}
 		}
-	}
-	
-	/** Formats the users input to match the naming convention of the commands within the 'commands.valid' package.
-	 * i.e. turns 'look' into 'Look' to match the class 'commands.valid.Look'.
-	 * */
-	private String formatItemName(String word) {
-		
-		return word.substring(0, 1).toUpperCase() + word.substring(1);
 	}
 }
