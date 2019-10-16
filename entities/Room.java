@@ -11,13 +11,13 @@ public class Room {
 	private HashMap<String, Item> items;
 	private HashMap<String, NPC> npcs;
 	
-	public Room(String name, String description, HashMap<String, String> exits, HashMap<String, Item> items) {
+	public Room(String name, String description, HashMap<String, String> exits, HashMap<String, Item> items, HashMap<String, NPC> npcs) {
 		
 		this.name = name;
 		this.description = description;
 		this.exits = exits;
 		this.items = items;
-		//this.npcs = npcs;
+		this.npcs = npcs;
 	}
 	
 	/** Adds all possible exists to a particular room.
@@ -51,20 +51,6 @@ public class Room {
 		return exits.trim();
 	}
 	
-	/** Returns the list of items in this room.
-	 * */
-	public HashMap<String, Item> getItems(){
-		
-		return this.items;
-	}
-	
-	/** Used when a player is dropping items. The player will drop (remove it from inventory) and add it to their current room.
-	 * */
-	public void addItem(Item item) {
-		
-		this.items.put(item.getName(), item);
-	}
-	
 	/** Will iterate over the list of items in this room, grab the items name, desc and weight, format the items information into a string and then return the total string. Used within the 'Look' command.
 	 * */
 	public String getItemsAsString() {
@@ -93,11 +79,56 @@ public class Room {
 
 	}
 	
+	/** Formats a string containing the NPC names in the current room. If no NPCs, an empty string will return.
+	 * */
+	public String getNPCsAsString() {
+		
+		String npcs = "NPCs: ";
+		
+		if(this.npcs.size() == 0) {
+			
+			// Just print blank, i.e. no one is here.
+			return "";
+		}
+		else {
+			
+			for(Map.Entry<String, NPC> e : this.npcs.entrySet()) {
+				
+				String name = e.getKey();
+				
+				npcs += "\n" + name;
+			}
+		}
+		
+		return npcs;
+	}
+	
+	/** Returns the list of items in this room.
+	 * */
+	public HashMap<String, Item> getItems(){
+		
+		return this.items;
+	}
+	
+	/** Used when a player is dropping items. The player will drop (remove it from inventory) and add it to their current room.
+	 * */
+	public void addItem(Item item) {
+		
+		this.items.put(item.getName(), item);
+	}
+	
 	/** Returns the room at exits 'direction'.
 	 **/
 	public String getExit(String direction) {
 		
 		return this.exits.get(direction);
+	}
+	
+	/** Returns either the NPC with the given key, OR null. (null if not found, i.e. NPC is not in the room).
+	 * */
+	public NPC getNPC(String npcName) {
+		
+		return this.npcs.get(npcName);
 	}
 	
 	/**

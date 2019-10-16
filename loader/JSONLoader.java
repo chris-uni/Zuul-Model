@@ -109,12 +109,28 @@ public class JSONLoader {
 	
 	/** Finds the corresponding npcs for any given room. Returns a list of the entry keys.
 	 * */
-	public HashMap<String, String> getRoomNPCS(String roomName){
+	public List<String> getNPCKeys(String roomName){
 		
 		JSONObject room = (JSONObject) jsonData.get(roomName);
+		JSONObject npcs = (JSONObject) room.get("npcs");
 		
-		HashMap<String, String> npcs = (HashMap<String, String>) room.get("npcs");
+		List<String> keys = new ArrayList<String>(npcs.keySet());
 		
-		return npcs;
+		return keys;
+	}
+	
+	/** Based on an npcs key, will load its information (description, weight etc).
+	 * */
+	public String[] getRoomNPCs(String roomName, String npcKey){
+		
+		// Gets the room.
+		JSONObject room = (JSONObject) jsonData.get(roomName);
+		JSONObject npcs = (JSONObject) room.get("npcs");
+		
+		JSONObject npc = (JSONObject) npcs.get(npcKey);
+		
+		String dialog = npc.get("dialog").toString();
+		
+		return new String[]{dialog};
 	}
 }

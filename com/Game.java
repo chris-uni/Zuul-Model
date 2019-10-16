@@ -9,10 +9,10 @@ package com;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import commands.CommandHandler;
 import entities.Item;
+import entities.NPC;
 import entities.Room;
 import loader.JSONLoader;
 import output.Mode;
@@ -73,41 +73,56 @@ public class Game {
 			String roomDesc = loader.getRoomDescription(roomName);
 			
 			HashMap<String, String> exits = loader.getRoomExits(roomName);
+			HashMap<String, Item> items = this.loadItems(roomName);
+			HashMap<String, NPC> npcs = this.loadNPCs(roomName);
 			
-			// For the current room in the JSON file, the below loads the items it has.
-			List<String> itemKeys = loader.getItemKeys(roomName);
-			HashMap<String, Item> items = new HashMap<String, Item>();
-			
-			/*
-			 * HashMap<String, String> npcs = loader.getRoomNPCS(roomName);
-			 * 
-			 * for(Map.Entry<String, String> e : npcs.entrySet()) {
-			 * 
-			 * String name = e.getKey(); String dialog = e.getValue();
-			 * 
-			 * OutputHandler.output("In room " + roomName + " we have npc: " + name, Mode.CONSOLE); 
-			 * }
-			 */
-			
-			// For every item in the items key within the JSON file.
-			
-			for(String itemName : itemKeys) {
-			
-				String[] itemInfo = loader.getRoomItems(roomName, itemName);
-				
-				String description = itemInfo[0];
-				int weight = Integer.parseInt(itemInfo[1].toString());
-				
-				items.put(itemName, new Item(itemName, description, weight));
-			}
-			
-			Room room = new Room(roomName, roomDesc, exits, items); // Need to think about best way to load this into the game.
+			Room room = new Room(roomName, roomDesc, exits, items, npcs);
 			allRooms.put(roomName, room);
 		}
 		
 		// Setting the initial room of the game.
 		this.currentRoom = allRooms.get("Courtyard");
 		
+	}
+	
+	/** A private method to load the items for any given room. Makes the loadRooms() method above a little cleaner.
+	 * */
+	private HashMap<String, Item> loadItems(String roomName){
+		
+		// For the current room in the JSON file, the below loads the items it has.
+		List<String> itemKeys = loader.getItemKeys(roomName);
+		HashMap<String, Item> items = new HashMap<String, Item>();			 
+		
+		// For every item in the items key within the JSON file.
+		for(String itemName : itemKeys) {
+		
+			String[] itemInfo = loader.getRoomItems(roomName, itemName);
+			
+			String description = itemInfo[0];
+			int weight = Integer.parseInt(itemInfo[1].toString());
+			
+			items.put(itemName, new Item(itemName, description, weight));
+		}
+		
+		return items;
+	}
+	
+	/** A private method to load NPCs into the game. Makes the loadRooms() method a little cleaner.
+	 * */
+	private HashMap<String, NPC> loadNPCs(String roomName){
+		
+		List<String> npcKeys = loader.getNPCKeys(roomName);
+		HashMap<String, NPC> npcs = new HashMap<String, NPC>();
+		
+		for(String npcName : npcKeys) {
+			
+			String npcInfo[] = loader.getRoomNPCs(roomName, npcName);
+			String dialog = npcInfo[0];
+			
+			npcs.put(npcName, new NPC(npcName, dialog));
+		}
+		
+		return npcs;
 	}
 	
 	/** Prints the welcome message to the screen for the player to see.

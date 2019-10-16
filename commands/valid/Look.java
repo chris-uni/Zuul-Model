@@ -17,5 +17,6 @@ public class Look implements ICommand{
 		OutputHandler.output(currentRoom.getDescription() + " There are " + currentRoom.getExits().size() + " exits in this room.", Mode.CONSOLE);
 		OutputHandler.output(currentRoom.getExitAsString(), Mode.CONSOLE);
 		OutputHandler.output("This room contains: " + currentRoom.getItemsAsString(), Mode.CONSOLE);
+		OutputHandler.output(currentRoom.getNPCsAsString(), Mode.CONSOLE);
 	 }
 }
