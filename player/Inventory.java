@@ -7,7 +7,7 @@ import entities.Item;
 import output.Mode;
 import output.OutputHandler;
 
-public class Inventory implements Cloneable{
+public class Inventory{
 
 	private final int MAX_WEIGHT = 10;
 	
@@ -25,13 +25,6 @@ public class Inventory implements Cloneable{
 	public int getMAX_WEIGHT() {
 		return MAX_WEIGHT;
 	}
-
-	/** Gets the list of items within the players inventory.
-	 * */
-	@SuppressWarnings("unchecked")
-	public HashMap<String, Item> getItems() {
-		return (HashMap<String, Item>) items.clone();
-	}
 	
 	/** Used to add a new item to the players inventory. Will first check that the weight of the new item + the current total weight of the inventory is not larger than MAX_WEIGT.
 	 * */
@@ -45,8 +38,6 @@ public class Inventory implements Cloneable{
 			
 			this.items.put(item.getName(), item);
 			this.currentWeight += item.getWeight();
-			
-			OutputHandler.output("Successfully taken the " + item.getName() + "!", Mode.CONSOLE);
 		}
 		else {
 			
@@ -59,6 +50,13 @@ public class Inventory implements Cloneable{
 	public boolean hasItem(String itemName) {
 		
 		return this.items.containsKey(itemName);
+	}
+	
+	/** Returns a specific item from the items HashMap.
+	 * */
+	public Item getItem(String itemName) {
+		
+		return this.items.get(itemName);
 	}
 	
 	/** Iterates over all items in the players inventory, will format this as a string and return it.
@@ -96,7 +94,5 @@ public class Inventory implements Cloneable{
 		
 		this.currentWeight -= item.getWeight();
 		this.items.remove(item.getName());
-		
-		OutputHandler.output("You dropped the " + item.getName() + ".", Mode.CONSOLE);
 	}
 }

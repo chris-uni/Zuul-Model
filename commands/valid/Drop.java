@@ -30,15 +30,16 @@ public class Drop implements ICommand{
 			
 			String itemName = Tools.firstLetterToCapital(userInput[1]);
 			
-			// The player has the specified item in its inventory and it is infact there!
+			// The player has the specified item in its inventory and it is in-fact there!
 			if(player.getInventory().hasItem(itemName)) {
 				
 				// The object of the item the player wants to drop.
-				Item item = player.getInventory().getItems().get(itemName);
+				Item item = player.getInventory().getItem(itemName);
 				
 				player.removeItem(item);
-				
 				currentRoom.addItem(item);
+				
+				OutputHandler.output("You dropped the " + item.getName() + ".", Mode.CONSOLE);
 			}
 			else {
 				

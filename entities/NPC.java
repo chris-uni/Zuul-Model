@@ -27,4 +27,11 @@ public class NPC {
 		
 		return this.dialog;
 	}
+	
+	/** Returns the Inventory of the NPC.
+	 * */
+	public Inventory getInventory() {
+		
+		return this.inventory;
+	}
 }

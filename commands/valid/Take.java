@@ -44,6 +44,8 @@ public class Take implements ICommand{
 				
 				player.addItem(roomItems.get(itemName));
 				currentRoom.getItems().remove(itemName);
+				
+				OutputHandler.output("Successfully taken the " + itemName + "!", Mode.CONSOLE);
 			}
 			else {
 				

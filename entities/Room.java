@@ -124,6 +124,13 @@ public class Room {
 		return this.exits.get(direction);
 	}
 	
+	/** Used to check whether or not the room has a certain NPC in it or not. True -> yes.
+	 * */
+	public boolean hasNPC(String npcName) {
+		
+		return this.npcs.containsKey(npcName);
+	}
+	
 	/** Returns either the NPC with the given key, OR null. (null if not found, i.e. NPC is not in the room).
 	 * */
 	public NPC getNPC(String npcName) {
