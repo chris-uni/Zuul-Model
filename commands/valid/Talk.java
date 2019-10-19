@@ -1,3 +1,8 @@
+/** Allows the player to talk to NPC's within the game.
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
+
 package commands.valid;
 
 import com.Game;

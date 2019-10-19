@@ -1,3 +1,8 @@
+/** The Inventory command lists the contents of the players inventory.
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
+
 package commands.valid;
 
 import com.Game;

@@ -1,3 +1,8 @@
+/** The definition of a Room within the game. Rooms contain exits, and can also contain (but not always) NPC's and Items.
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
+
 package entities;
 
 import java.util.HashMap;

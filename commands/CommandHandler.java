@@ -1,3 +1,10 @@
+/**
+ * The CommandHandler class handles user input from the in-game command line. The command system in this game is based on the Command Design Pattern; therefore each in-game command has been refactored out
+ * into its own class, all implementing the ICommand interface. When the player enters in a command, this class will try to create an instance of the specified command, however if the word does not 
+ * reflect with the name of a command, an error message will display to the player.
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
 package commands;
 
 import java.lang.reflect.InvocationTargetException;

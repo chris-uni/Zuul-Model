@@ -1,3 +1,8 @@
+/** The Drop command allows the player to drop an existing item in their inventory into the current room they are in.
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
+
 package commands.valid;
 
 import com.Game;

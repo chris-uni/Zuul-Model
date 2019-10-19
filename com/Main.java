@@ -2,7 +2,7 @@
  * 
  * This is the main class of the zuul-model. Contains the main method + the game itself.
  * 
- * @author Chris Wing
+ * @author Chris Wing (cjmw2)
  */
 package com;
 

@@ -1,3 +1,8 @@
+/** This class contains the definitions of the different types of output in the game.
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
+
 package output;
 
 public enum Mode {

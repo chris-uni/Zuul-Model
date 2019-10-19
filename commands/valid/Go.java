@@ -1,3 +1,8 @@
+/** Go enables players to move between rooms. Will check the direction specified by the player, if valid it will move the plahyer into the new room.
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
+
 package commands.valid;
 
 import java.lang.reflect.InvocationTargetException;

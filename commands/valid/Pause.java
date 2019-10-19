@@ -1,3 +1,7 @@
+/** Allows the player to pause the game. 
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
 
 package commands.valid;
 

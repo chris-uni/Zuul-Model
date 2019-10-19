@@ -1,3 +1,8 @@
+/** The definition of an in-game item. Items have a name, description and weight.
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
+
 package entities;
 
 public class Item{

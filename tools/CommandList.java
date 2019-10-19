@@ -1,3 +1,9 @@
+/** Used to iterate through the 'commands.valid' folder and work out what list of commands are available to the player. Will also be used to iterate through the 'plugin.commands' folder to see what external plugins are
+ * avilable.
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
+
 package tools;
 
 import java.io.File;

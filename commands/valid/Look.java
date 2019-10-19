@@ -1,3 +1,7 @@
+/** The look commands allows the player to 'look' around the room they are in, essentially giving a description of what they see.
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
 package commands.valid;
 
 import com.Game;

@@ -1,3 +1,8 @@
+/** Allows the player to take a specified item from a room, providing that the item exists.
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
+
 package commands.valid;
 
 import java.util.HashMap;

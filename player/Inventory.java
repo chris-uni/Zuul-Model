@@ -1,3 +1,8 @@
+/** The inventory class holds information about what items and what total weight any player/ NPC may have/is/. Contains methods to add/remove items whilst at the same time updating the inventories current weight.
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
+
 package player;
 
 import java.util.HashMap;

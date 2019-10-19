@@ -16,8 +16,9 @@
       	}
       },
       "npcs" : {
-      	"name" : "Richard",
-      	"dialog" : "Beware traveller of the Cinema!"
+      	"Richard" : {
+      		"dialog" : "Beware traveller of the Cinema!"
+      	}
       }
     },
     
@@ -34,8 +35,9 @@
       	}
       },
       "npcs" : {
-      	"name" : "Richard",
-      	"dialog" : "Beware traveller of the Cinema!"
+      	"Carlos" : {
+      		"dialog" : "The Cinema is a scary place!"
+      	}
       }
     }
   }

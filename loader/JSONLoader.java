@@ -1,3 +1,10 @@
+/** The games JSON Loader class. This will load the game data stored within the game-config.json file. 
+ * 
+ * IMPORTANT: This class relies on the external Library 'json-simple-1.1.1' and as such, there are a few Warnings in the below code. This is down to the fact Java doesn't quite know if (JSONObject) can be cast into
+ * type HashMap<String, String>. The answer is yes, it can, but again, Java doesn't quite believe you.
+ * 
+ * @author Chris Wing (cjmw2)*/
+
 package loader;
 
 import java.io.FileReader;

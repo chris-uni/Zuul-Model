@@ -1,3 +1,8 @@
+/** The player class. This contains the definition on what a player within the game is. Contains information on their inventory and current room.
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
+
 package player;
 
 import entities.Item;

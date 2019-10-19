@@ -1,3 +1,8 @@
+/** Help command allows the player to get a list of commands avilable to them in the game.
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
+
 package commands.valid;
 
 import java.util.List;

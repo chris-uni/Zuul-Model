@@ -3,7 +3,7 @@
  * 
  * Contains game logic, calls to other classes that handle room navigation, parsing, item interaction and more.
  * 
- * @author Chris Wing
+ * @author Chris Wing (cjmw2)
  */
 package com;
 

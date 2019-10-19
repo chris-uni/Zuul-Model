@@ -1,3 +1,8 @@
+/** This is the games input parser. Will wait for input from the user and hand this off to the CommandHandler class.
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
+
 package parser;
 
 import java.util.Scanner;

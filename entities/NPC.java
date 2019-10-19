@@ -1,3 +1,8 @@
+/** The definition of an NPC. Along with a name and dialog, NPC's also have an inventory to hold their items in.
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
+
 package entities;
 
 import player.Inventory;
