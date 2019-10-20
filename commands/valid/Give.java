@@ -18,6 +18,9 @@ import tools.Tools;
 
 public class Give implements ICommand{
 
+	// The description of this command to be displayed on 'help' command.
+	private String description = "Enables you to give an item to an NPC. E.g. 'give sword to chris'";
+	
 	@Override
 	public void execute(Game game, String[] userInput) {
 		
@@ -86,5 +89,13 @@ public class Give implements ICommand{
 			OutputHandler.output("Error, you must enter an item name to give!", Mode.CONSOLE);
 		}
 		
+	}
+
+	/** Allows the 'help' listing to get the commands description, lets the player know what each command does.
+	 * */
+	@Override
+	public String description() {
+		
+		return this.description;
 	}
 }

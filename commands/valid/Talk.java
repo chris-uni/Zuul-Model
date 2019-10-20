@@ -16,6 +16,9 @@ import tools.Tools;
 
 public class Talk implements ICommand{
 
+	// The description of this command to be displayed on 'help' command.
+	private String description = "Talk to an NPC in your current room. E.g. 'talk to chris'";
+	
 	@Override
 	public void execute(Game game, String[] userInput) {
 		
@@ -47,5 +50,13 @@ public class Talk implements ICommand{
 			
 			OutputHandler.output("Error, you must enter an NPC's name!", Mode.CONSOLE);
 		}
+	}
+
+	/** Allows the 'help' listing to get the commands description, lets the player know what each command does.
+	 * */
+	@Override
+	public String description() {
+		
+		return this.description;
 	}
 }

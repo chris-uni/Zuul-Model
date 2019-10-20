@@ -19,6 +19,9 @@ import tools.Tools;
 
 public class Take implements ICommand{
 
+	// The description of this command to be displayed on 'help' command.
+	private String description = "Take a specified item thats in your current room. E.g. 'take sword'";
+	
 	@Override
 	public void execute(Game game, String[] userInput) {
 	
@@ -57,5 +60,13 @@ public class Take implements ICommand{
 				OutputHandler.output("Error, '" + itemName + "' is not an item in this room!", Mode.CONSOLE);
 			}
 		}
+	}
+
+	/** Allows the 'help' listing to get the commands description, lets the player know what each command does.
+	 * */
+	@Override
+	public String description() {
+		
+		return this.description;
 	}
 }

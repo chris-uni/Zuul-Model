@@ -7,8 +7,6 @@
  * */
 package commands;
 
-import java.lang.reflect.InvocationTargetException;
-
 import com.Game;
 
 import output.Mode;
@@ -34,41 +32,22 @@ public class CommandHandler {
 		
 		// The input from the user via the command line.
 		String[] userInput = parser.getUserInput();
+				
+		// The first word of the users command string. We will be comparing this to the available commands in package commands.valid.
+		// Formats it to match the class name of commands, i.e. first letter is upper-case.
+		String firstWord = formatCommand(userInput[0]);
 		
-
+		ICommand command = game.getCommand(firstWord);
+		
+		if(command != null) {
 			
-			// The first word of the users command string. We will be comparing this to the available commands in pkg commands.
-			// Formats it to match the class name of commands, i.e. first letter is uppercase.
-			String firstWord = formatCommand(userInput[0]);
+			command.execute(game, userInput);
+		}
+		else {
 			
-			try {
-				
-				// Based on what the user inputs, we generate a new command object for that specific comamnd.
-				ICommand command = this.commandFactory(firstWord);
-				
-				// Now we execute that command.
-				command.execute(this.game, userInput);
-				
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
-				
-				// In the case the the user tries to get funny and input a command that actually isnt in the game, give them an error message.
-				OutputHandler.output("Sorry, I'm not sure what you mean by '" + userInput[0] + "'", Mode.CONSOLE);
-			}
-
-	}
-	
-	/** Will simply attempt to create a new instance of class 'commands.valid.ClassName'.
-	 * */
-	private ICommand commandFactory(String name) throws ClassNotFoundException, 
-													  InstantiationException, 
-													  IllegalAccessException, 
-													  IllegalArgumentException, 
-													  InvocationTargetException,
-													  NoSuchMethodException, 
-													  SecurityException{
-		 
-		return (ICommand)Class.forName("commands.valid." + name).getDeclaredConstructor().newInstance();
+			// In the case the the user tries to get funny and input a command that actually isn't in the game, give them an error message.
+			OutputHandler.output("Sorry, I'm not sure what you mean by '" + userInput[0] + "'", Mode.CONSOLE);
+		}
 	}
 	
 	/** Formats the users input to match the naming convention of the commands within the 'commands.valid' package.

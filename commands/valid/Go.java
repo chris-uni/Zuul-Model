@@ -15,6 +15,9 @@ import output.OutputHandler;
 
 public class Go implements ICommand{
 
+	// The description of this command to be displayed on 'help' command.
+	private String description = "Enables you to move into new rooms. E.g. 'go north'";
+	
 	@Override
 	public void execute(Game game, String[] userInput) {
 		
@@ -61,5 +64,14 @@ public class Go implements ICommand{
 			OutputHandler.output("Error, expecting a direction to move. Staying here for now.", Mode.CONSOLE);
 		}
 		
+	}
+
+
+	/** Allows the 'help' listing to get the commands description, lets the player know what each command does.
+	 * */
+	@Override
+	public String description() {
+		
+		return this.description;
 	}
 }

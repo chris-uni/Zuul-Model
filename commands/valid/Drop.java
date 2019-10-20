@@ -17,6 +17,9 @@ import tools.Tools;
 
 public class Drop implements ICommand{
 
+	// The description of this command to be displayed on 'help' command.
+	private String description = "Drop a specified item into your current room.";
+	
 	@Override
 	public void execute(Game game, String[] userInput) {
 		
@@ -55,5 +58,13 @@ public class Drop implements ICommand{
 			
 			OutputHandler.output("You need to enter the name of the item you wish to drop!", Mode.CONSOLE);
 		}
+	}
+	
+	/** Allows the 'help' listing to get the commands description, lets the player know what each command does.
+	 * */
+	@Override
+	public String description() {
+		
+		return this.description;
 	}
 }

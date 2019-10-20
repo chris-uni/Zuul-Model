@@ -14,10 +14,21 @@ import output.OutputHandler;
 
 public class Quit implements ICommand{
 
+	// The description of this command to be displayed on 'help' command.
+	private String description = "Quit the game.";
+	
 	@Override
 	public void execute(Game game, String[] userInput) {
 		
 		OutputHandler.output("Cya!", Mode.CONSOLE);
 		game.updateGameState(State.QUIT);
+	}
+
+	/** Allows the 'help' listing to get the commands description, lets the player know what each command does.
+	 * */
+	@Override
+	public String description() {
+		
+		return this.description;
 	}
 }
