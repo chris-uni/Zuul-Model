@@ -4,10 +4,10 @@
     "Courtyard": {
       "description": "The courtyard is empty, it looks abandoned.",
       "exits": {
-        "north": "CornwallisN",
-        "south": "CornwallisS",
+        "north": "Co-op",
+        "south": "Library",
         "east": "Cinema",
-        "west": "CornwallisW"
+        "west": "Woolf"
       },
       "items" : {
       	"Sword" : {
@@ -35,10 +35,101 @@
       	}
       },
       "npcs" : {
-      	"Carlos" : {
-      		"dialog" : "The Cinema is a scary place!"
+      	"Monster" : {
+      		"dialog" : "Hello adventurer, prepare to die!"
       	}
       }
+    },
+    
+    "Co-op" : {
+    	"description" : "All you could ever need right here...",
+    	"exits" : {
+    		"south" : "Courtyard",
+    		"west" : "Venue",
+    		"east" : "Keynes"
+    	},
+    	"items" : {
+    		"Steakbake" : {
+    			"description" : "A delicious looking steakbake",
+    			"weight" : "1"
+    		}
+    	},
+    	"npcs" : {
+    		"Manager" : {
+    			"dialog" : "Hey, did you pay for that steakbake?"
+    		}
+    	}
+    },
+    
+    "Keynes" : {
+    	"description" : "Home of K-bar and Michelin starred Dolche Vita",
+    	"exits" : {
+    		"west" : "Co-op",
+    		"south " : "Cinema"
+    	},
+    	"items" : {
+    		"Pizza" : {
+    			"description" : "A freshly baked pizza, looks good.",
+    			"weight" : "1"
+    		}
+    	},
+    	"npcs" : {}
+    },
+    
+    "Library" : {
+    	"description" : "Home to make books, and book-worms alike.",
+    	"exits" : {
+    		"north" : "Courtyard"
+    	},
+    	"items" : {
+    		"Book" : {
+    			"description" : "A book on monster hunting... interesting.",
+    			"weight" : "2"
+    		}
+    	},
+    	"npcs" : {
+    		"Librarian" : {
+    			"dialog" : "Did you find the book you wanted?"
+    		}
+    	}
+    },
+    
+    "Venue" : {
+    	"description" : "There are still students drunk outside!",
+    	"exits" : {
+    		"east" : "Co-op",
+    		"south" : "Woolf"
+    	},
+    	"items" : {
+    		"Pint" : {
+    			"description" : "A pint of lager, this will go down well.",
+    			"weight" : "1"
+    		}
+    	},
+    	"npcs" : {
+    		"Student" : {
+    			"dialog" : "kgtdKHJFVCKTUYDjfrdj"
+    		}
+    	}
+    },
+    
+    "Woolf" : {
+    	"description" : "Named after Virgina Woolf",
+    	"exits" : {
+    		"north" : "Venue",
+    		"east" : "Courtyard"
+    	},
+    	"items" : {
+    		"Gandalf" : {
+    			"description" : "A fearless feline, sure to help in a fight.",
+    			"weight" : "5"
+    		}
+    	},
+    	"npcs" : {
+    		"Carlos" : {
+    			"dialog" : "The Cinema is a scary place!"
+    		}
+    	}
     }
   }
 }
