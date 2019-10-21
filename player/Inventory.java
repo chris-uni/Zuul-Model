@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import entities.Item;
+import entities.Room;
 import output.Mode;
 import output.OutputHandler;
 
@@ -33,16 +34,22 @@ public class Inventory{
 	
 	/** Used to add a new item to the players inventory. Will first check that the weight of the new item + the current total weight of the inventory is not larger than MAX_WEIGT.
 	 * */
-	public void addItem(Item item) {
+	public void addItem(Item item, Room room) {
 		
 		int itemWeight = item.getWeight();
 		
 		int newTotal = itemWeight + this.currentWeight;
 		
+		OutputHandler.output("Item weight: " + itemWeight + ", New total: " + Integer.toString(newTotal), Mode.CONSOLE);
 		if(newTotal < this.MAX_WEIGHT) {
 			
 			this.items.put(item.getName(), item);
 			this.currentWeight += item.getWeight();
+			
+			// If we are successful in taking the object, remove it from the current room.
+			room.removeItem(item.getName());
+			
+			OutputHandler.output("Successfully taken the " + item.getName() + "!", Mode.CONSOLE);
 		}
 		else {
 			

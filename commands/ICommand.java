@@ -11,5 +11,4 @@ public interface ICommand {
 	public void execute(Game game, String[] userInput);
 	
 	public String description();
-
 }

@@ -12,6 +12,7 @@ import entities.NPC;
 import entities.Room;
 import output.Mode;
 import output.OutputHandler;
+import player.Player;
 import tools.Tools;
 
 public class Talk implements ICommand{
@@ -30,7 +31,8 @@ public class Talk implements ICommand{
 		 * 4. If not, error message.
 		 * */
 		
-		Room currentRoom = game.getCurrentRoom();
+		Player player = game.getCurrentPlayer();
+		Room currentRoom = player.getCurrentRoom();
 		
 		if(userInput.length > 1) {
 			

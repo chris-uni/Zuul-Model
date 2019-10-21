@@ -1,4 +1,4 @@
-/** This class handles the text output of the game. Instead of using 'System.out.println()' everywhwere, this class allows text output to be handled in a better way. Simple by specifying a mode, we can determine how
+/** This class handles the text output of the game. Instead of using 'System.out.println()' everywhere, this class allows text output to be handled in a better way. Simple by specifying a mode, we can determine how
  *  to handle the output and where to put it. Can be extended later to allow output to GUI interfaces.
  * 
  * @author Chris Wing (cjmw2)

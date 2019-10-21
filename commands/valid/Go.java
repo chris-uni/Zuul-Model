@@ -10,8 +10,10 @@ import java.lang.reflect.InvocationTargetException;
 import com.Game;
 
 import commands.ICommand;
+import entities.Room;
 import output.Mode;
 import output.OutputHandler;
+import player.Player;
 
 public class Go implements ICommand{
 
@@ -23,6 +25,9 @@ public class Go implements ICommand{
 		
 		int inputLength = userInput.length;
 		
+		Player currentPlayer = game.getCurrentPlayer();
+		Room currentRoom = currentPlayer.getCurrentRoom();
+		
 		// First check to see if there is another input word, i.e. 'north'.
 		if(inputLength != 1) {
 			
@@ -30,13 +35,16 @@ public class Go implements ICommand{
 			String direction = userInput[1];
 			
 			// Now check to see if the direction specified actually has a room.
-			if(game.getCurrentRoom().getExit(direction) != null) {
+			if(currentRoom.getExit(direction) != null) {
 				
 				// Okay, now we can move to the new room.
-				String newRoom =  game.getCurrentRoom().getExit(direction);
+				String newRoom =  currentRoom.getExit(direction);
 				
 				// Updates the current room the player is in.
-				game.updatCurrentRoom(game.getAllRooms().get(newRoom));
+				// game.updatCurrentRoom(game.getRoom(newRoom));
+				
+				// Updates the current room of this specific player.
+				currentPlayer.updateRoom(game.getRoom(newRoom));
 				
 				// Attempts to make a new instance of the 'Look' object which when executed, describes the room to the player.
 				ICommand look;

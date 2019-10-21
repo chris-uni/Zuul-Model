@@ -27,4 +27,11 @@ public class Parser {
 		OutputHandler.output("> ", Mode.CONSOLE_S);
 		return this.scanner.nextLine().toLowerCase().split(" ");
 	}
+	
+	/** When the game is done, we can close the scanner to prevent memory leaks.
+	 * */
+	public void cleanup() {
+		
+		this.scanner.close();
+	}
 }

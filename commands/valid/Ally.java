@@ -21,8 +21,8 @@ public class Ally implements ICommand{
 		 * 4. If not, error message.
 		 * */
 		
-		Player player = game.getPlayer();
-		Room currentRoom = game.getCurrentRoom();
+		Player player = game.getCurrentPlayer();
+		Room currentRoom = player.getCurrentRoom();
 		
 		// To finish off later...
 	}

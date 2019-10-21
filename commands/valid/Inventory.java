@@ -20,7 +20,7 @@ public class Inventory implements ICommand{
 	@Override
 	public void execute(Game game, String[] userInput) {
 		
-		Player player = game.getPlayer();
+		Player player = game.getCurrentPlayer();
 		OutputHandler.output(player.getInventory().printInventory(), Mode.CONSOLE);
 	}
 

@@ -7,8 +7,11 @@
  */
 package com;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 import commands.CommandHandler;
 import commands.ICommand;
@@ -31,35 +34,105 @@ public class Game {
 	private CommandHandler commandHandler;
 	private HashMap<String, ICommand> commands;
 
-	private Room currentRoom;
+	//private Room currentRoom;
 	private HashMap<String, Room> allRooms = new HashMap<String, Room>();
 	
 	// The games data file. Contains information about rooms, exits and items.
 	private JSONLoader loader = new JSONLoader("res/roomData.json");
 	
+	// This holds the list of players currently playing the game.
+	private List<Player> players = new ArrayList<Player>();
+	
+	// The reference of the player object whose go it is currently.
+	private Player currentPlayer;
+	
 	public Game() {
-		
-		this.player = new Player();
+			
 		this.commands = CommandList.getCommands("src/commands/valid");
 		
 		commandHandler = new CommandHandler(this);
 		
 		this.gameState = State.PLAY;
 		
+		// First things first, how many players in the game?
+		this.setPlayers();
+		
+		// We know we must have at least one player in the game for it to start, therefore set the current player to be the player at index 0.
+		this.currentPlayer = players.get(0);
+		
+		// Now we can load the rooms.
 		this.loadRooms();
 	}
 	
 	/** Runs the game and checks for State updates.
 	 * */
 	public void play() {
-		
+				
 		this.welcomeMessage();
-		
+
+		// Main game loop.
 		while(gameState == State.PLAY) {
-		
-			// Else run the game.
-			commandHandler.handleCommand(parser);
+			
+			if(gameState == State.PAUSE) {
+				
+				// We will handle this later...
+			}
+			
+			else {
+				
+				// For every player we have in the game, this lets them take in turns.
+				for(int i = 0; i < players.size(); i++) {
+					
+					// Sets who the current player is.
+					this.currentPlayer = players.get(i);
+					
+					OutputHandler.output("Player " + (i + 1) + "'s turn: \n", Mode.CONSOLE);
+					commandHandler.handleCommand(parser);
+				}
+			}
 		}
+		
+		// Closes the scanner and releases the resources attached to it.
+		parser.cleanup();
+	}
+	
+	/** The very first thing to run, sets the number of players in the game.
+	 * */
+	private void setPlayers() {
+		
+		// New console scanner.
+		Scanner scanner = new Scanner(System.in);
+		
+		OutputHandler.output("How many players do you want playing? ", Mode.CONSOLE);
+		
+		try {
+			
+			// Tries to convert the users input into a number.
+			int number = Integer.parseInt(scanner.nextLine());
+			
+			
+			// Max of 10 players.
+			if(number <= 10) {
+				
+				// For X, create X number of players.
+				for(int i = 0; i < number; i++) {
+					
+					// Add players to list.
+					this.players.add(new Player());
+				}	
+			}
+			else {
+				
+				OutputHandler.output("Maximum of 10 players allowed!", Mode.CONSOLE);
+				this.setPlayers();
+			}
+		}
+		catch(NumberFormatException e) {
+			
+			// If the number entered is not a valid number, output error message and try again!
+			OutputHandler.output("Your must enter in a number!", Mode.CONSOLE);
+			this.setPlayers();
+		}		
 	}
 	
 	/** Loads the in-game rooms. Uses the List<String> object returned from the JSONLoader class to know what rooms exist in the game world.
@@ -67,7 +140,7 @@ public class Game {
 	private void loadRooms() {
 		
 		List<String> roomNames = loader.getAllRooms();
-		
+
 		for(int i = 0; i < roomNames.size(); i++) {
 			
 			// Get the room  name and description from the JSON file.
@@ -82,9 +155,16 @@ public class Game {
 			allRooms.put(roomName, room);
 		}
 		
-		// Setting the initial room of the game.
-		this.currentRoom = allRooms.get("Courtyard");
+		Random rand = new Random();
+		int rnd = rand.nextInt(allRooms.size() - 1);
 		
+		// Setting the initial room for all the players in the room.
+		for(int i = 0; i < players.size(); i++) {
+		
+			Room room  = (Room)allRooms.values().toArray()[rnd];
+			
+			players.get(i).updateRoom(room);
+		}
 	}
 	
 	/** A private method to load the items for any given room. Makes the loadRooms() method above a little cleaner.
@@ -131,7 +211,21 @@ public class Game {
 	 * */
 	private void welcomeMessage() {
 		
-		OutputHandler.output("Welcome traveller, to the World of Zuul!\nYou are in: " + this.currentRoom.getName() + "\nFor hints you can type  'help'.", Mode.CONSOLE);
+		String plural = "traveller";
+		
+		if(players.size() > 1) {
+			
+			plural = "travellers";
+		}
+			
+		OutputHandler.output("Welcome " + plural + ", to the World of Zuul! For hints you can type 'help'.\nYou are currently in: " + this.currentPlayer.getCurrentRoom().getName(), Mode.CONSOLE);
+	}
+	
+	/** Returns who the current player is.
+	 * */
+	public Player getCurrentPlayer() {
+		
+		return this.currentPlayer;
 	}
 	
 	/** Returns the games current State, i.e. PAUSE, PLAY, QUIT etc.
@@ -148,25 +242,11 @@ public class Game {
 		this.gameState = state;
 	}
 	
-	/** Returns the player object.
+	/** Returns the room object specified by the room name paramater.
 	 * */
-	public Player getPlayer() {
+	public Room getRoom(String roomName) {
 		
-		return this.player;
-	}
-	
-	/** Returns the current Room object. I.e. the current room the player is in.
-	 * */
-	public Room getCurrentRoom() {
-		
-		return this.currentRoom;
-	}
-	
-	/** Updates the current Room object. Allows the player to move from one room to another by taking exits.
-	 * */
-	public void updatCurrentRoom(Room room) {
-		
-		this.currentRoom = room;
+		return this.allRooms.get(roomName);
 	}
 	
 	/** Returns the entire list of Rooms available in the game.

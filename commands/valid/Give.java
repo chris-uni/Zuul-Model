@@ -35,8 +35,8 @@ public class Give implements ICommand{
 		 * Else, error, dont have item | Error, not in the same room as npc!
 		 * */
 		
-		Player player = game.getPlayer();
-		Room currentRoom = game.getCurrentRoom();
+		Player player = game.getCurrentPlayer();
+		Room currentRoom = player.getCurrentRoom();
 		
 		if(userInput.length > 1) {
 			
@@ -65,7 +65,7 @@ public class Give implements ICommand{
 						NPC npc = currentRoom.getNPC(npcName);
 						
 						// Add the item to the NPC's inventory and remove if from yours.
-						npc.getInventory().addItem(item);
+						npc.getInventory().addItem(item, currentRoom);
 						player.getInventory().removeItem(item);
 						
 						OutputHandler.output("You gave " + npcName + " your " + itemName, Mode.CONSOLE);

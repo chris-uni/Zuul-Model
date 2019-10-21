@@ -20,7 +20,7 @@ public class Pause implements ICommand{
 	@Override
 	public void execute(Game game, String[] userInput) {
 		
-		OutputHandler.output("Game paused. Type resume to continue.", Mode.CONSOLE);
+		OutputHandler.output("Game paused. Press 'p' to continue.", Mode.CONSOLE);
 		game.updateGameState(State.PAUSE);			
 	}
 

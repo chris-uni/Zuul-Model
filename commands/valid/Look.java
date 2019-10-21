@@ -10,6 +10,7 @@ import commands.ICommand;
 import entities.Room;
 import output.Mode;
 import output.OutputHandler;
+import player.Player;
 
 public class Look implements ICommand{
 
@@ -19,9 +20,10 @@ public class Look implements ICommand{
 	@Override
 	public void execute(Game game, String[] userInput) {
 		
-		Room currentRoom = game.getCurrentRoom();
+		Player player = game.getCurrentPlayer();
+		Room currentRoom = player.getCurrentRoom();
 		
-		OutputHandler.output(currentRoom.getDescription() + " There are " + currentRoom.getExits().size() + " exits in this room.", Mode.CONSOLE);
+		OutputHandler.output(currentRoom.getName() + ": " + currentRoom.getDescription() + " There are " + currentRoom.getExits().size() + " exits in this room.", Mode.CONSOLE);
 		OutputHandler.output(currentRoom.getExitAsString(), Mode.CONSOLE);
 		OutputHandler.output("This room contains: " + currentRoom.getItemsAsString(), Mode.CONSOLE);
 		OutputHandler.output(currentRoom.getNPCsAsString(), Mode.CONSOLE);

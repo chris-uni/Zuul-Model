@@ -108,11 +108,11 @@ public class Room {
 		return npcs;
 	}
 	
-	/** Returns the list of items in this room.
+	/** Removes the specified item from the items HashMap. I.e. removes the item from the room.
 	 * */
-	public HashMap<String, Item> getItems(){
+	public void removeItem(String itemName) {
 		
-		return this.items;
+		this.items.remove(itemName);
 	}
 	
 	/** Used when a player is dropping items. The player will drop (remove it from inventory) and add it to their current room.
@@ -120,6 +120,13 @@ public class Room {
 	public void addItem(Item item) {
 		
 		this.items.put(item.getName(), item);
+	}
+	
+	/** Returns an item object whose key corresponds to the key specified, if it exists. Otherwise returns null.
+	 * */
+	public Item getItem(String itemName) {
+		
+		return this.items.get(itemName);
 	}
 	
 	/** Returns the room at exits 'direction'.

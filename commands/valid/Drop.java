@@ -30,8 +30,8 @@ public class Drop implements ICommand{
 		 * 5. Update. -> Could also run the Look command to update what the Room looks like?
 		 * */
 		
-		Player player = game.getPlayer();
-		Room currentRoom = game.getCurrentRoom();
+		Player player = game.getCurrentPlayer();
+		Room currentRoom = player.getCurrentRoom();
 		
 		// They entered in a name!
 		if(userInput.length > 1) {

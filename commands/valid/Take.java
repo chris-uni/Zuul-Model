@@ -5,8 +5,6 @@
 
 package commands.valid;
 
-import java.util.HashMap;
-
 import com.Game;
 
 import commands.ICommand;
@@ -24,9 +22,9 @@ public class Take implements ICommand{
 	
 	@Override
 	public void execute(Game game, String[] userInput) {
-	
-		Room currentRoom = game.getCurrentRoom();
-		Player player = game.getPlayer();
+		
+		Player player = game.getCurrentPlayer();
+		Room currentRoom = player.getCurrentRoom();
 		
 		/*
 		 * 0. Did the user enter in an item name, or simply type 'take'?
@@ -44,16 +42,13 @@ public class Take implements ICommand{
 		else{
 			
 			String itemName = Tools.firstLetterToCapital(userInput[1]);
-			
-			HashMap<String, Item> roomItems = currentRoom.getItems();
+		
+			Item roomItem = currentRoom.getItem(itemName);
 			
 			// Here we check the existence of the item in the room. If null == item does not exist!
-			if(roomItems.get(itemName) != null) {
+			if(roomItem != null) {
 				
-				player.addItem(roomItems.get(itemName));
-				currentRoom.getItems().remove(itemName);
-				
-				OutputHandler.output("Successfully taken the " + itemName + "!", Mode.CONSOLE);
+				player.addItem(roomItem);
 			}
 			else {
 				
