@@ -42,7 +42,7 @@ public class CommandList {
 					// Now we can try to create a new instance of the Command class 'comamndName'.
 					ICommand commandObj = (ICommand)Class.forName("commands.valid." + commandName).getDeclaredConstructor().newInstance();
 					
-					// If successful, we add it to the list of avilable commands.
+					// If successful, we add it to the list of available commands.
 					commands.put(commandName, commandObj);
 					
 				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException | ClassNotFoundException e) {

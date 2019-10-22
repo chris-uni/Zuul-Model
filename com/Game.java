@@ -8,6 +8,7 @@
 package com;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -110,7 +111,6 @@ public class Game {
 			// Tries to convert the users input into a number.
 			int number = Integer.parseInt(scanner.nextLine());
 			
-			
 			// Max of 10 players.
 			if(number <= 10) {
 				
@@ -132,7 +132,7 @@ public class Game {
 			// If the number entered is not a valid number, output error message and try again!
 			OutputHandler.output("Your must enter in a number!", Mode.CONSOLE);
 			this.setPlayers();
-		}		
+		}
 	}
 	
 	/** Loads the in-game rooms. Uses the List<String> object returned from the JSONLoader class to know what rooms exist in the game world.
@@ -173,20 +173,21 @@ public class Game {
 		
 		// For the current room in the JSON file, the below loads the items it has.
 		List<String> itemKeys = loader.getItemKeys(roomName);
-		HashMap<String, Item> items = new HashMap<String, Item>();			 
 		
-		// For every item in the items key within the JSON file.
-		for(String itemName : itemKeys) {
+		var itemWrapper = new Object() { HashMap<String, Item> items = new HashMap<String, Item>(); };
 		
-			String[] itemInfo = loader.getRoomItems(roomName, itemName);
+		itemKeys.forEach((k) -> {
 			
-			String description = itemInfo[0];
+			String itemInfo[] = loader.getRoomItems(roomName, k);
+			
+			String desc = itemInfo[0];
 			int weight = Integer.parseInt(itemInfo[1].toString());
 			
-			items.put(itemName, new Item(itemName, description, weight));
-		}
+			itemWrapper.items.put(k, new Item(k, desc, weight));
+			
+		});
 		
-		return items;
+		return itemWrapper.items;
 	}
 	
 	/** A private method to load NPCs into the game. Makes the loadRooms() method a little cleaner.
@@ -194,17 +195,18 @@ public class Game {
 	private HashMap<String, NPC> loadNPCs(String roomName){
 		
 		List<String> npcKeys = loader.getNPCKeys(roomName);
-		HashMap<String, NPC> npcs = new HashMap<String, NPC>();
 		
-		for(String npcName : npcKeys) {
+		var npcWrapper = new Object() { HashMap<String, NPC> npcs = new HashMap<String, NPC>(); };
+		
+		npcKeys.forEach((k) -> {
 			
-			String npcInfo[] = loader.getRoomNPCs(roomName, npcName);
+			String npcInfo[] = loader.getRoomNPCs(roomName, k);
 			String dialog = npcInfo[0];
 			
-			npcs.put(npcName, new NPC(npcName, dialog));
-		}
+			npcWrapper.npcs.put(k, new NPC(k, dialog));
+		});
 		
-		return npcs;
+		return npcWrapper.npcs;
 	}
 	
 	/** Prints the welcome message to the screen for the player to see.
@@ -249,13 +251,6 @@ public class Game {
 		return this.allRooms.get(roomName);
 	}
 	
-	/** Returns the entire list of Rooms available in the game.
-	 * */
-	public HashMap<String, Room> getAllRooms(){
-		
-		return this.allRooms;
-	}
-	
 	/** Returns an ICommand object back to the caller.
 	 * */
 	public ICommand getCommand(String commandName){
@@ -263,7 +258,7 @@ public class Game {
 		return this.commands.get(commandName);
 	}
 	
-	/** Returns the HashMap of commands avilable within the game.
+	/** Returns the HashMap of commands available within the game.
 	 * */
 	public HashMap<String, ICommand> getCommands(){
 		

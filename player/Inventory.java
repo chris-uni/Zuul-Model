@@ -19,11 +19,11 @@ public class Inventory{
 	
 	private HashMap<String, Item> items = new HashMap<String, Item>();
 	
-	private int currentWeight = 0;
+	private int currentWeight;
 	
 	public Inventory() {
 		
-		
+		this.currentWeight = 0;
 	}
 
 	/** Gets the players inventory max weight value.
@@ -57,6 +57,30 @@ public class Inventory{
 		}
 	}
 	
+	/** Iterates over all items in the players inventory, will format this as a string and return it.
+	 * */
+	public String printInventory() {
+		
+		var wrapper = new Object() {String inventory = ""; };
+		
+		if(items.size() == 0) {
+			
+			return "Looks like you dont have anything in your inventory yet!";
+		}
+		else {
+		
+			this.items.forEach((k, v) -> {
+				
+				wrapper.inventory += v.getName() + "(" + v.getWeight() + ")" + "\n";
+			});
+
+			wrapper.inventory += "Your total weight is: " + this.currentWeight;
+			
+			return wrapper.inventory.trim();
+		}
+
+	}
+
 	/** Checks to see if there is 'itemName' within the HashMap (inventory). If true, return true. Else return false.
 	 * */
 	public boolean hasItem(String itemName) {
@@ -71,35 +95,6 @@ public class Inventory{
 		return this.items.get(itemName);
 	}
 	
-	/** Iterates over all items in the players inventory, will format this as a string and return it.
-	 * */
-	public String printInventory() {
-		
-		String inventory = "Your inventory: \n";
-		
-		if(items.size() == 0) {
-			
-			return "Looks like you dont have anything in your inventory yet!";
-		}
-		else {
-		
-			for(Map.Entry<String, Item> e : this.items.entrySet()) {
-				
-				Item item = e.getValue();
-				
-				String name = item.getName();
-				int weight = item.getWeight();
-				
-				inventory += name + "(" + weight + ")" + "\n";
-			}
-			
-			inventory += "Your total weight is: " + this.currentWeight;
-			
-			return inventory.trim();
-		}
-
-	}
-
 	/** Used to drop an item, that is, remove it from the players inventory and add it to the player current room.
 	 * */
 	public void removeItem(Item item) {

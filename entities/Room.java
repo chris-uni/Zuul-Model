@@ -6,7 +6,6 @@
 package entities;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class Room {
 
@@ -43,24 +42,21 @@ public class Room {
 	 * */
 	public String getExitAsString() {
 		
-		String exits = "";
+		var wrapper = new Object() { String exits = ""; };
 		
-		for(Map.Entry<String, String> e : this.exits.entrySet()) {
+		this.exits.forEach((k, v) -> {
 			
-			String exit = e.getValue();
-			String direction = e.getKey();
-			
-			exits += direction + " : " + exit + "\n";
-		}
-		
-		return exits.trim();
+			wrapper.exits += v + " : " + k + "\n";
+		});
+	
+		return wrapper.exits.trim();
 	}
 	
 	/** Will iterate over the list of items in this room, grab the items name, desc and weight, format the items information into a string and then return the total string. Used within the 'Look' command.
 	 * */
 	public String getItemsAsString() {
 		
-		String items = "";
+		var wrapper = new Object() {String items = ""; };
 		
 		if(this.items.size() == 0) {
 			
@@ -68,18 +64,12 @@ public class Room {
 		}
 		else {
 			
-			for(Map.Entry<String, Item> e : this.items.entrySet()) {
+			this.items.forEach((k, v) -> {
 				
-				Item item = e.getValue();
-				
-				String name = item.getName();
-				String desc = item.getDescription();
-				int weight = item.getWeight();
-				
-				items += name + "(" + weight + ")" + ", " + desc + "\n";
-			}
+				wrapper.items += v.getName() + "(" + v.getWeight() + ")" + ", " + v.getDescription() + "\n";
+			});
 			
-			return items.trim();
+			return wrapper.items.trim();
 		}
 
 	}
@@ -88,7 +78,7 @@ public class Room {
 	 * */
 	public String getNPCsAsString() {
 		
-		String npcs = "NPCs: ";
+		var wrapper = new Object() {String list = ""; };
 		
 		if(this.npcs.size() == 0) {
 			
@@ -97,15 +87,13 @@ public class Room {
 		}
 		else {
 			
-			for(Map.Entry<String, NPC> e : this.npcs.entrySet()) {
+			this.npcs.forEach((k, v) -> {
 				
-				String name = e.getKey();
-				
-				npcs += "\n" + name;
-			}
+				wrapper.list += k + "\n";
+			});
 		}
 		
-		return npcs;
+		return wrapper.list.trim();
 	}
 	
 	/** Removes the specified item from the items HashMap. I.e. removes the item from the room.
@@ -129,7 +117,7 @@ public class Room {
 		return this.items.get(itemName);
 	}
 	
-	/** Returns the room at exits 'direction'.
+	/** Returns the room at exits 'direction'. If no exits are in direction 'direction', null will be returned.
 	 **/
 	public String getExit(String direction) {
 		

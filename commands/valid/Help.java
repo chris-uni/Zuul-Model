@@ -6,7 +6,6 @@
 package commands.valid;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import com.Game;
 
@@ -27,10 +26,10 @@ public class Help implements ICommand{
 		
 		HashMap<String, ICommand> commands = game.getCommands();
 		
-		for(Map.Entry<String, ICommand> e : commands.entrySet()) {
+		commands.forEach((k, v) -> {
 			
-			OutputHandler.output(e.getKey() + " - " + e.getValue().description(), Mode.CONSOLE);
-		}
+			OutputHandler.output(k + " - " + v.description(), Mode.CONSOLE);
+		});
 	}
 
 	/** Allows the 'help' listing to get the commands description, lets the player know what each command does.
