@@ -32,7 +32,7 @@ public class Give implements ICommand{
 		 * 2. Check to see if they have it in their inventory.
 		 * 3. Check to see if the npc name is in the current room as them.
 		 * If yes to both, give the item specified to the npc.
-		 * Else, error, dont have item | Error, not in the same room as npc!
+		 * Else, error, don't have item | Error, not in the same room as npc!
 		 * */
 		
 		Player player = game.getCurrentPlayer();
@@ -66,7 +66,7 @@ public class Give implements ICommand{
 						
 						// Add the item to the NPC's inventory and remove if from yours.
 						npc.getInventory().addItem(item, currentRoom);
-						player.getInventory().removeItem(item);
+						player.removeItem(item);
 						
 						OutputHandler.output("You gave " + npcName + " your " + itemName, Mode.CONSOLE);
 					}

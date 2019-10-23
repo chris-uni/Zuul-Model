@@ -8,12 +8,12 @@
 package com;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import ai.AIController;
 import commands.CommandHandler;
 import commands.ICommand;
 import entities.Item;
@@ -28,7 +28,6 @@ import tools.CommandList;
 
 public class Game {
 	
-	private Player player;
 	private State gameState;
 	private Parser parser = new Parser();
 	
@@ -47,11 +46,15 @@ public class Game {
 	// The reference of the player object whose go it is currently.
 	private Player currentPlayer;
 	
+	private AIController ai;
+	
 	public Game() {
 			
 		this.commands = CommandList.getCommands("src/commands/valid");
 		
 		commandHandler = new CommandHandler(this);
+		
+		ai = new AIController(this);
 		
 		this.gameState = State.PLAY;
 		
@@ -83,6 +86,10 @@ public class Game {
 				
 				// For every player we have in the game, this lets them take in turns.
 				for(int i = 0; i < players.size(); i++) {
+					
+					// AI of the NPCs. Every 10-20 seconds a random NPc will move room. Can be extended.
+					this.ai.run(10000);
+					OutputHandler.output("Current thread: " + Thread.currentThread().getId(), Mode.CONSOLE);
 					
 					// Sets who the current player is.
 					this.currentPlayer = players.get(i);
@@ -249,6 +256,17 @@ public class Game {
 	public Room getRoom(String roomName) {
 		
 		return this.allRooms.get(roomName);
+	}
+	
+	/** Returns a random room within the game. Used within NPC ai.
+	 * */
+	public Room getRandomRoom() {
+		
+		int count = this.allRooms.size() - 1;
+		
+		Random random = new Random();
+		
+		return (Room) this.allRooms.values().toArray()[random.nextInt(count)];
 	}
 	
 	/** Returns an ICommand object back to the caller.

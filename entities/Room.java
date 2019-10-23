@@ -6,6 +6,7 @@
 package entities;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class Room {
 
@@ -22,20 +23,6 @@ public class Room {
 		this.exits = exits;
 		this.items = items;
 		this.npcs = npcs;
-	}
-	
-	/** Adds all possible exists to a particular room.
-	 * */
-	public void addExits(HashMap<String, String> exits) {
-		
-		this.exits = exits;
-	}
-	
-	/** Returns all the possible exits of a particular room.
-	 **/
-	public HashMap<String, String> getExits(){
-		
-		return this.exits;
 	}
 	
 	/** Will iterate over the rooms list of exits, pulling only the exit Values (i.e. the new rooms the exits lead too). This is formed into a string and returned. Used when inspecting a room.
@@ -96,6 +83,29 @@ public class Room {
 		return wrapper.list.trim();
 	}
 	
+	
+	/** Adds all possible exists to a particular room.
+	 * */
+	public void addExits(HashMap<String, String> exits) {
+		
+		this.exits = exits;
+	}
+	
+	/** Returns all the possible exits of a particular room.
+	 **/	
+	public Set<String> getExits(){
+		
+		return this.exits.keySet();
+	}
+	
+	
+	/** Returns the room at exits 'direction'. If no exits are in direction 'direction', null will be returned.
+	 **/
+	public String getExit(String direction) {
+		
+		return this.exits.get(direction);
+	}
+	
 	/** Removes the specified item from the items HashMap. I.e. removes the item from the room.
 	 * */
 	public void removeItem(String itemName) {
@@ -116,14 +126,7 @@ public class Room {
 		
 		return this.items.get(itemName);
 	}
-	
-	/** Returns the room at exits 'direction'. If no exits are in direction 'direction', null will be returned.
-	 **/
-	public String getExit(String direction) {
-		
-		return this.exits.get(direction);
-	}
-	
+
 	/** Used to check whether or not the room has a certain NPC in it or not. True -> yes.
 	 * */
 	public boolean hasNPC(String npcName) {

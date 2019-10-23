@@ -40,9 +40,6 @@ public class Go implements ICommand{
 				// Okay, now we can move to the new room.
 				String newRoom =  currentRoom.getExit(direction);
 				
-				// Updates the current room the player is in.
-				// game.updatCurrentRoom(game.getRoom(newRoom));
-				
 				// Updates the current room of this specific player.
 				currentPlayer.updateRoom(game.getRoom(newRoom));
 				
