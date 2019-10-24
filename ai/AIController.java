@@ -1,3 +1,8 @@
+/**
+ * The over-arching AI controller class. This controls when new threads are created and the classes they invoke when created.
+ * 
+ * @author Chris Wing (cjmw2)
+ * */
 package ai;
 
 import java.util.Random;

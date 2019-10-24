@@ -12,9 +12,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 
 import ai.AIController;
 import commands.CommandHandler;
+import commands.IAiCommand;
 import commands.ICommand;
 import entities.Item;
 import entities.NPC;
@@ -25,6 +27,7 @@ import output.OutputHandler;
 import parser.Parser;
 import player.Player;
 import tools.CommandList;
+import tools.Tools;
 
 public class Game {
 	
@@ -32,7 +35,12 @@ public class Game {
 	private Parser parser = new Parser();
 	
 	private CommandHandler commandHandler;
+	
+	// List of commands available to the player.
 	private HashMap<String, ICommand> commands;
+	
+	// List of commands available to the NPS's (AI's).
+	private List<String> aiCommands;
 
 	//private Room currentRoom;
 	private HashMap<String, Room> allRooms = new HashMap<String, Room>();
@@ -51,6 +59,7 @@ public class Game {
 	public Game() {
 			
 		this.commands = CommandList.getCommands("src/commands/valid");
+		this.aiCommands = CommandList.getAiCommands("src/commands/ai");
 		
 		commandHandler = new CommandHandler(this);
 		
@@ -88,8 +97,7 @@ public class Game {
 				for(int i = 0; i < players.size(); i++) {
 					
 					// AI of the NPCs. Every 10-20 seconds a random NPc will move room. Can be extended.
-					this.ai.run(10000);
-					OutputHandler.output("Current thread: " + Thread.currentThread().getId(), Mode.CONSOLE);
+					this.ai.run(30000);
 					
 					// Sets who the current player is.
 					this.currentPlayer = players.get(i);
@@ -251,7 +259,7 @@ public class Game {
 		this.gameState = state;
 	}
 	
-	/** Returns the room object specified by the room name paramater.
+	/** Returns the room object specified by the room name parameter.
 	 * */
 	public Room getRoom(String roomName) {
 		
@@ -281,5 +289,14 @@ public class Game {
 	public HashMap<String, ICommand> getCommands(){
 		
 		return (HashMap<String, ICommand>) this.commands.clone();
+	}
+	
+	/** Returns the name of a random command from the aiCommands list.
+	 * */
+	public String getRandomCommand() {
+		
+		int randIndex = Tools.randomNumber(this.aiCommands);
+		
+		return this.aiCommands.get(randIndex);
 	}
 }
