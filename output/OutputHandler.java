@@ -23,11 +23,8 @@ public class OutputHandler {
 			case CONSOLE:
 				System.out.println(string);
 				break;
-			case CONSOLE_S:
-				System.out.print(string);
-				break;
-			case F:
-				System.out.printf(string);
+			case GUI:
+				
 				break;
 		}
 	}

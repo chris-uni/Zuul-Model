@@ -19,6 +19,7 @@ import commands.ICommand;
 import entities.Item;
 import entities.NPC;
 import entities.Room;
+import gui.GuiContainer;
 import loader.JSONLoader;
 import output.Mode;
 import output.OutputHandler;
@@ -41,6 +42,7 @@ public class Game {
 	// List of commands available to the NPS's (AI's).
 	private List<String> aiCommands;
 
+	// HashMap of all the rooms in the game.
 	private HashMap<String, Room> allRooms = new HashMap<String, Room>();
 	
 	// This holds the list of players currently playing the game.
@@ -55,16 +57,25 @@ public class Game {
 	// The AI controller of the game.
 	private AIController ai;
 	
+	// Mode of the game, whether its Console/ Gui or Other.
 	private static Mode outputMode;
 	
 	public Game() {
-			
-		this.setOutputMode(Mode.CONSOLE);
 		
+		// Loads the commands of both the players and the AI's into the game.
 		this.commands = CommandList.getCommands("src/commands/valid");
 		this.aiCommands = CommandList.getAiCommands("src/commands/ai");
-
+		
+		// Sets the output mode of the game. For this we will just be outputting to std::console.
+		this.setOutputMode(Mode.CONSOLE);
+		
+		// Decides how to handle the commands the user is inputting.
 		commandHandler = new CommandHandler(this);
+		
+		if(outputMode == Mode.GUI) {
+			
+			GuiContainer guiController = new GuiContainer(this);	
+		}
 		
 		ai = new AIController(this);
 		
@@ -83,7 +94,8 @@ public class Game {
 	/** Runs the game and checks for State updates.
 	 * */
 	public void play() {
-				
+		
+		// Games welcome message.
 		this.welcomeMessage();
 
 		// Main game loop.
@@ -106,7 +118,8 @@ public class Game {
 					this.currentPlayer = players.get(i);
 					
 					OutputHandler.output("Player " + (i + 1) + "'s turn: \n");
-					commandHandler.handleCommand(parser);
+					
+					commandHandler.handleCommand(outputMode, parser);
 				}
 			}
 		}

@@ -8,12 +8,9 @@ package output;
 public enum Mode {
 
 	/**
-	 * Standard System.out.println();*/
+	 * Console mode, all output will be to std::console. */
 	CONSOLE,
 	/**
-	 * Standard System.out.print();*/
-	CONSOLE_S,
-	/**
-	 * System.printf();*/
-	F
+	 * GUI mode, game creates a window with buttons to represent the commands. */
+	GUI
 }

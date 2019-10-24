@@ -9,6 +9,7 @@ package commands;
 
 import com.Game;
 
+import output.Mode;
 import output.OutputHandler;
 import parser.Parser;
 
@@ -27,10 +28,19 @@ public class CommandHandler {
 	 * method within it. We know it will have 'execute' as the command classes all implements an interface 'ICommand' with method execute. 
 	 * 
 	 * If no class is found, for e.g. if the user inputs 'Hello, World', an error message is displayed onto the screen.*/
-	public void handleCommand(Parser parser) {
+	public void handleCommand(Mode gameMode, Parser parser) {
 		
-		// The input from the user via the command line.
-		String[] userInput = parser.getUserInput();
+		String userInput[] = {};
+		
+		if(gameMode == Mode.CONSOLE) {
+			
+			// The input from the user via the command line.
+			userInput = parser.getUserInput();
+		}
+		else if(gameMode == Mode.GUI) {
+			
+			
+		}
 				
 		// The first word of the users command string. We will be comparing this to the available commands in package commands.valid.
 		// Formats it to match the class name of commands, i.e. first letter is upper-case.
