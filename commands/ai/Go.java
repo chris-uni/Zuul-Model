@@ -11,7 +11,6 @@ import com.Game;
 import commands.IAiCommand;
 import entities.NPC;
 import entities.Room;
-import output.Mode;
 import output.OutputHandler;
 import tools.Tools;
 
@@ -44,7 +43,7 @@ public class Go implements IAiCommand{
 			newRoom.addNPC(randNPC);
 			
 			OutputHandler.output("NPC '" + randNPC.getName() + "' has moved from " + randRoom.getName() + 
-					" to " + newRoom.getName(), Mode.CONSOLE);
+					" to " + newRoom.getName());
 		}
 		
 	}

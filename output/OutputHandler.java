@@ -6,15 +6,19 @@
 
 package output;
 
+import com.Game;
+
 import output.Mode;
 
 public class OutputHandler {
 	
+	private static Mode outputMode = Game.getOutputMode();
 	/**
 	 * Allows output to be handled in different ways.*/
-	public static void output(String string, Mode mode) {
+	public static void output(String string) {
 		
-		switch(mode) {
+		
+		switch(outputMode) {
 		
 			case CONSOLE:
 				System.out.println(string);

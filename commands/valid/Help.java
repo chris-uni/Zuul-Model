@@ -10,7 +10,6 @@ import java.util.HashMap;
 import com.Game;
 
 import commands.ICommand;
-import output.Mode;
 import output.OutputHandler;
 
 public class Help implements ICommand{
@@ -22,13 +21,13 @@ public class Help implements ICommand{
 	 * */
 	public void execute(Game game, String[] userInput) {
 		
-		OutputHandler.output("You have the following commands avilable to you: ", Mode.CONSOLE);
+		OutputHandler.output("You have the following commands avilable to you: ");
 		
 		HashMap<String, ICommand> commands = game.getCommands();
 		
 		commands.forEach((k, v) -> {
 			
-			OutputHandler.output(k + " - " + v.description(), Mode.CONSOLE);
+			OutputHandler.output(k + " - " + v.description());
 		});
 	}
 

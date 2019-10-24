@@ -10,7 +10,6 @@ import java.lang.reflect.InvocationTargetException;
 import com.Game;
 
 import commands.IAiCommand;
-import output.Mode;
 import output.OutputHandler;
 
 public class AICommand implements Runnable{
@@ -45,7 +44,7 @@ public class AICommand implements Runnable{
 				| NoSuchMethodException | SecurityException | ClassNotFoundException e) {
 			
 			e.printStackTrace();
-			OutputHandler.output("Error, AI command: " + commandName + " cannot be found!", Mode.CONSOLE);
+			OutputHandler.output("Error, AI command: " + commandName + " cannot be found!");
 		}
 	
 		

@@ -10,7 +10,6 @@ import com.Game;
 import commands.ICommand;
 import entities.Item;
 import entities.Room;
-import output.Mode;
 import output.OutputHandler;
 import player.Player;
 import tools.Tools;
@@ -37,7 +36,7 @@ public class Take implements ICommand{
 		// Only the take command was entered..
 		if(userInput.length == 1) {
 			
-			OutputHandler.output("Error, you must enter an item name to take!", Mode.CONSOLE);
+			OutputHandler.output("Error, you must enter an item name to take!");
 		}
 		else{
 			
@@ -52,7 +51,7 @@ public class Take implements ICommand{
 			}
 			else {
 				
-				OutputHandler.output("Error, '" + itemName + "' is not an item in this room!", Mode.CONSOLE);
+				OutputHandler.output("Error, '" + itemName + "' is not an item in this room!");
 			}
 		}
 	}

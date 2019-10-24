@@ -10,7 +10,6 @@ import com.Game;
 import commands.ICommand;
 import entities.NPC;
 import entities.Room;
-import output.Mode;
 import output.OutputHandler;
 import player.Player;
 import tools.Tools;
@@ -41,16 +40,16 @@ public class Talk implements ICommand{
 			
 			if(npc != null) {
 				
-				OutputHandler.output(npcName + ": " + npc.getDialog(), Mode.CONSOLE);
+				OutputHandler.output(npcName + ": " + npc.getDialog());
 			}
 			else {
 				
-				OutputHandler.output("Error, " + npcName + " is not in this room!", Mode.CONSOLE);
+				OutputHandler.output("Error, " + npcName + " is not in this room!");
 			}
 		}
 		else{
 			
-			OutputHandler.output("Error, you must enter an NPC's name!", Mode.CONSOLE);
+			OutputHandler.output("Error, you must enter an NPC's name!");
 		}
 	}
 

@@ -8,7 +8,6 @@ import com.Game;
 
 import commands.ICommand;
 import entities.Room;
-import output.Mode;
 import output.OutputHandler;
 import player.Player;
 
@@ -23,10 +22,10 @@ public class Look implements ICommand{
 		Player player = game.getCurrentPlayer();
 		Room currentRoom = player.getCurrentRoom();
 		
-		OutputHandler.output(currentRoom.getName() + ": " + currentRoom.getDescription() + " There are " + currentRoom.getExits().size() + " exits in this room.", Mode.CONSOLE);
-		OutputHandler.output(currentRoom.getExitAsString(), Mode.CONSOLE);
-		OutputHandler.output("This room contains: " + currentRoom.getItemsAsString(), Mode.CONSOLE);
-		OutputHandler.output(currentRoom.getNPCsAsString(), Mode.CONSOLE);
+		OutputHandler.output(currentRoom.getName() + ": " + currentRoom.getDescription() + " There are " + currentRoom.getExits().size() + " exits in this room.");
+		OutputHandler.output(currentRoom.getExitAsString());
+		OutputHandler.output("This room contains: " + currentRoom.getItemsAsString());
+		OutputHandler.output(currentRoom.getNPCsAsString());
 	 }
 
 	/** Allows the 'help' listing to get the commands description, lets the player know what each command does.

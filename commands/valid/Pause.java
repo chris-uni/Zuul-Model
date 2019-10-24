@@ -9,7 +9,6 @@ import com.Game;
 import com.State;
 
 import commands.ICommand;
-import output.Mode;
 import output.OutputHandler;
 
 public class Pause implements ICommand{
@@ -20,7 +19,7 @@ public class Pause implements ICommand{
 	@Override
 	public void execute(Game game, String[] userInput) {
 		
-		OutputHandler.output("Game paused. Press 'p' to continue.", Mode.CONSOLE);
+		OutputHandler.output("Game paused. Press 'p' to continue.");
 		game.updateGameState(State.PAUSE);			
 	}
 

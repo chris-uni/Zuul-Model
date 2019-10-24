@@ -10,7 +10,6 @@ import com.Game;
 import commands.ICommand;
 import entities.Item;
 import entities.Room;
-import output.Mode;
 import output.OutputHandler;
 import player.Player;
 import tools.Tools;
@@ -47,16 +46,16 @@ public class Drop implements ICommand{
 				player.removeItem(item);
 				currentRoom.addItem(item);
 				
-				OutputHandler.output("You dropped the " + item.getName() + ".", Mode.CONSOLE);
+				OutputHandler.output("You dropped the " + item.getName() + ".");
 			}
 			else {
 				
-				OutputHandler.output("Looks like you don't have '" + itemName + "' in your inventory!", Mode.CONSOLE);
+				OutputHandler.output("Looks like you don't have '" + itemName + "' in your inventory!");
 			}
 		}
 		else {
 			
-			OutputHandler.output("You need to enter the name of the item you wish to drop!", Mode.CONSOLE);
+			OutputHandler.output("You need to enter the name of the item you wish to drop!");
 		}
 	}
 	

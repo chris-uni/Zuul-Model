@@ -8,7 +8,6 @@ package commands.valid;
 import com.Game;
 
 import commands.ICommand;
-import output.Mode;
 import output.OutputHandler;
 import player.Player;
 
@@ -21,7 +20,7 @@ public class Inventory implements ICommand{
 	public void execute(Game game, String[] userInput) {
 		
 		Player player = game.getCurrentPlayer();
-		OutputHandler.output(player.getInventory().printInventory(), Mode.CONSOLE);
+		OutputHandler.output(player.getInventory().printInventory());
 	}
 
 	/** Allows the 'help' listing to get the commands description, lets the player know what each command does.

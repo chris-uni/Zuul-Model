@@ -11,7 +11,6 @@ import commands.ICommand;
 import entities.Item;
 import entities.NPC;
 import entities.Room;
-import output.Mode;
 import output.OutputHandler;
 import player.Player;
 import tools.Tools;
@@ -68,25 +67,25 @@ public class Give implements ICommand{
 						npc.getInventory().addItem(item, currentRoom);
 						player.removeItem(item);
 						
-						OutputHandler.output("You gave " + npcName + " your " + itemName, Mode.CONSOLE);
+						OutputHandler.output("You gave " + npcName + " your " + itemName);
 					}
 					else {
 						
-						OutputHandler.output("Error, " + npcName + " is not in your current room!", Mode.CONSOLE);
+						OutputHandler.output("Error, " + npcName + " is not in your current room!");
 					}
 				}
 				else {
 					
-					OutputHandler.output("Error, you dont have " + itemName + " in your inventory!", Mode.CONSOLE);
+					OutputHandler.output("Error, you dont have " + itemName + " in your inventory!");
 				}
 			}
 			else {
 				
-				OutputHandler.output("Sorry, I dont know what you mean by: " + checkTo, Mode.CONSOLE);
+				OutputHandler.output("Sorry, I dont know what you mean by: " + checkTo);
 			}
 		}
 		else {
-			OutputHandler.output("Error, you must enter an item name to give!", Mode.CONSOLE);
+			OutputHandler.output("Error, you must enter an item name to give!");
 		}
 		
 	}

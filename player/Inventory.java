@@ -10,7 +10,6 @@ import java.util.Map;
 
 import entities.Item;
 import entities.Room;
-import output.Mode;
 import output.OutputHandler;
 
 public class Inventory{
@@ -40,7 +39,7 @@ public class Inventory{
 		
 		int newTotal = itemWeight + this.currentWeight;
 		
-		OutputHandler.output("Item weight: " + itemWeight + ", New total: " + Integer.toString(newTotal), Mode.CONSOLE);
+		OutputHandler.output("Item weight: " + itemWeight + ", New total: " + Integer.toString(newTotal));
 		if(newTotal < this.MAX_WEIGHT) {
 			
 			this.items.put(item.getName(), item);
@@ -49,11 +48,11 @@ public class Inventory{
 			// If we are successful in taking the object, remove it from the current room.
 			room.removeItem(item.getName());
 			
-			OutputHandler.output("Successfully taken the " + item.getName() + "!", Mode.CONSOLE);
+			OutputHandler.output("Successfully taken the " + item.getName() + "!");
 		}
 		else {
 			
-			OutputHandler.output("Error, that item is too heavy for you. Please loose some weight!", Mode.CONSOLE);
+			OutputHandler.output("Error, that item is too heavy for you. Please loose some weight!");
 		}
 	}
 	

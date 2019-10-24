@@ -9,7 +9,6 @@ package commands;
 
 import com.Game;
 
-import output.Mode;
 import output.OutputHandler;
 import parser.Parser;
 
@@ -46,7 +45,7 @@ public class CommandHandler {
 		else {
 			
 			// In the case the the user tries to get funny and input a command that actually isn't in the game, give them an error message.
-			OutputHandler.output("Sorry, I'm not sure what you mean by '" + userInput[0] + "'", Mode.CONSOLE);
+			OutputHandler.output("Sorry, I'm not sure what you mean by '" + userInput[0] + "'");
 		}
 	}
 	

@@ -12,11 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Set;
 
 import ai.AIController;
 import commands.CommandHandler;
-import commands.IAiCommand;
 import commands.ICommand;
 import entities.Item;
 import entities.NPC;
@@ -34,6 +32,7 @@ public class Game {
 	private State gameState;
 	private Parser parser = new Parser();
 	
+	// Handles the player commands of the game.
 	private CommandHandler commandHandler;
 	
 	// List of commands available to the player.
@@ -42,25 +41,29 @@ public class Game {
 	// List of commands available to the NPS's (AI's).
 	private List<String> aiCommands;
 
-	//private Room currentRoom;
 	private HashMap<String, Room> allRooms = new HashMap<String, Room>();
-	
-	// The games data file. Contains information about rooms, exits and items.
-	private JSONLoader loader = new JSONLoader("res/roomData.json");
 	
 	// This holds the list of players currently playing the game.
 	private List<Player> players = new ArrayList<Player>();
 	
+	// The games data file. Contains information about rooms, exits and items.
+	private JSONLoader loader = new JSONLoader("res/roomData.json");
+	
 	// The reference of the player object whose go it is currently.
 	private Player currentPlayer;
 	
+	// The AI controller of the game.
 	private AIController ai;
+	
+	private static Mode outputMode;
 	
 	public Game() {
 			
+		this.setOutputMode(Mode.CONSOLE);
+		
 		this.commands = CommandList.getCommands("src/commands/valid");
 		this.aiCommands = CommandList.getAiCommands("src/commands/ai");
-		
+
 		commandHandler = new CommandHandler(this);
 		
 		ai = new AIController(this);
@@ -102,7 +105,7 @@ public class Game {
 					// Sets who the current player is.
 					this.currentPlayer = players.get(i);
 					
-					OutputHandler.output("Player " + (i + 1) + "'s turn: \n", Mode.CONSOLE);
+					OutputHandler.output("Player " + (i + 1) + "'s turn: \n");
 					commandHandler.handleCommand(parser);
 				}
 			}
@@ -119,7 +122,7 @@ public class Game {
 		// New console scanner.
 		Scanner scanner = new Scanner(System.in);
 		
-		OutputHandler.output("How many players do you want playing? ", Mode.CONSOLE);
+		OutputHandler.output("How many players do you want playing? ");
 		
 		try {
 			
@@ -138,14 +141,14 @@ public class Game {
 			}
 			else {
 				
-				OutputHandler.output("Maximum of 10 players allowed!", Mode.CONSOLE);
+				OutputHandler.output("Maximum of 10 players allowed!");
 				this.setPlayers();
 			}
 		}
 		catch(NumberFormatException e) {
 			
 			// If the number entered is not a valid number, output error message and try again!
-			OutputHandler.output("Your must enter in a number!", Mode.CONSOLE);
+			OutputHandler.output("Your must enter in a number!");
 			this.setPlayers();
 		}
 	}
@@ -235,7 +238,7 @@ public class Game {
 			plural = "travellers";
 		}
 			
-		OutputHandler.output("Welcome " + plural + ", to the World of Zuul! For hints you can type 'help'.\nYou are currently in: " + this.currentPlayer.getCurrentRoom().getName(), Mode.CONSOLE);
+		OutputHandler.output("Welcome " + plural + ", to the World of Zuul! For hints you can type 'help'.\nYou are currently in: " + this.currentPlayer.getCurrentRoom().getName());
 	}
 	
 	/** Returns who the current player is.
@@ -298,5 +301,19 @@ public class Game {
 		int randIndex = Tools.randomNumber(this.aiCommands);
 		
 		return this.aiCommands.get(randIndex);
+	}
+	
+	/** Returns the output mode of the game, whether its to console, GUI or other.
+	 * */
+	public static Mode getOutputMode() {
+		
+		return outputMode;
+	}
+	
+	/** Used to set the output mode of the game.
+	 * */
+	public void setOutputMode(Mode mode) {
+		
+		outputMode = mode;
 	}
 }

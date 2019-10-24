@@ -11,7 +11,6 @@ import com.Game;
 
 import commands.ICommand;
 import entities.Room;
-import output.Mode;
 import output.OutputHandler;
 import player.Player;
 
@@ -62,11 +61,11 @@ public class Go implements ICommand{
 			
 			else {
 				
-				OutputHandler.output("Error, there is no exit that way! Staying here for now.", Mode.CONSOLE);
+				OutputHandler.output("Error, there is no exit that way! Staying here for now.");
 			}
 		}
 		else {
-			OutputHandler.output("Error, expecting a direction to move. Staying here for now.", Mode.CONSOLE);
+			OutputHandler.output("Error, expecting a direction to move. Staying here for now.");
 		}
 		
 	}

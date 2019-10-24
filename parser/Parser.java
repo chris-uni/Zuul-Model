@@ -7,7 +7,6 @@ package parser;
 
 import java.util.Scanner;
 
-import output.Mode;
 import output.OutputHandler;
 
 public class Parser {
@@ -24,7 +23,7 @@ public class Parser {
 	 * */
 	public String[] getUserInput() {
 		
-		OutputHandler.output("> ", Mode.CONSOLE_S);
+		OutputHandler.output("> ");
 		return this.scanner.nextLine().toLowerCase().split(" ");
 	}
 	
