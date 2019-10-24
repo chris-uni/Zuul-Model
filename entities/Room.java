@@ -98,7 +98,6 @@ public class Room {
 		return this.exits.keySet();
 	}
 	
-	
 	/** Returns the room at exits 'direction'. If no exits are in direction 'direction', null will be returned.
 	 **/
 	public String getExit(String direction) {
@@ -139,6 +138,27 @@ public class Room {
 	public NPC getNPC(String npcName) {
 		
 		return this.npcs.get(npcName);
+	}
+	
+	/** Returns all the NPC's of a particular room.
+	 **/	
+	public Set<String> getNPCs(){
+		
+		return this.npcs.keySet();
+	}
+	
+	/** Adds a new NPC to the room.
+	 * */
+	public void addNPC(NPC npc) {
+		
+		this.npcs.put(npc.getName(), npc);
+	}
+	
+	/** Removes the specified npc from the room.
+	 * */
+	public void removeNPC(String npcName) {
+		
+		this.npcs.remove(npcName);
 	}
 	
 	/**

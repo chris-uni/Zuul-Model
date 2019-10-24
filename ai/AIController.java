@@ -18,6 +18,8 @@ public class AIController {
 		this.timer = new Timer();
 	}
 	
+	/** Main runner for the AI functionality of the game.
+	 * */
 	public void run(int interval) {
 			
 		Random random = new Random();
