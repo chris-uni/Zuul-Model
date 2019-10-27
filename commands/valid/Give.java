@@ -39,49 +39,39 @@ public class Give implements ICommand{
 		
 		if(userInput.length > 1) {
 			
-			String checkTo = userInput[2];
+			// Name of the item, now we know the name exists in the command string.
+			String itemName = Tools.firstLetterToCapital(userInput[1]);
 			
-			// Used to check if we are still adhering to the correct command format.
-			if(checkTo.equals("to")) {
+			// Now we check the item to see if in players inventory.
+			if(player.getInventory().hasItem(itemName)) {
 				
-				// Name of the item, now we know the name exists in the command string.
-				String itemName = Tools.firstLetterToCapital(userInput[1]);
+				// The item the player wishes to give to the NPC.
+				Item item = player.getInventory().getItem(itemName);
 				
-				// Now we check the item to see if in players inventory.
-				if(player.getInventory().hasItem(itemName)) {
+				// Now we need to check to see if the specified NPC is in the players current room.
+				
+				String npcName = Tools.firstLetterToCapital(userInput[2]);
+				
+				if(currentRoom.hasNPC(npcName)) {
 					
-					// The item the player wishes to give to the NPC.
-					Item item = player.getInventory().getItem(itemName);
+					// Now we can give the item to the NPC!
 					
-					// Now we need to check to see if the specified NPC is in the players current room.
+					NPC npc = currentRoom.getNPC(npcName);
 					
-					String npcName = Tools.firstLetterToCapital(userInput[3]);
+					// Add the item to the NPC's inventory and remove if from yours.
+					npc.getInventory().addItem(item, currentRoom);
+					player.removeItem(item);
 					
-					if(currentRoom.hasNPC(npcName)) {
-						
-						// Now we can give the item to the NPC!
-						
-						NPC npc = currentRoom.getNPC(npcName);
-						
-						// Add the item to the NPC's inventory and remove if from yours.
-						npc.getInventory().addItem(item, currentRoom);
-						player.removeItem(item);
-						
-						OutputHandler.output("You gave " + npcName + " your " + itemName);
-					}
-					else {
-						
-						OutputHandler.output("Error, " + npcName + " is not in your current room!");
-					}
+					OutputHandler.output("You gave " + npcName + " your " + itemName);
 				}
 				else {
 					
-					OutputHandler.output("Error, you dont have " + itemName + " in your inventory!");
+					OutputHandler.output("Error, " + npcName + " is not in your current room!");
 				}
 			}
 			else {
 				
-				OutputHandler.output("Sorry, I dont know what you mean by: " + checkTo);
+				OutputHandler.output("Error, you dont have " + itemName + " in your inventory!");
 			}
 		}
 		else {

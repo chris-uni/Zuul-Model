@@ -74,7 +74,7 @@ public class Game {
 		
 		if(outputMode == Mode.GUI) {
 			
-			GuiContainer guiController = new GuiContainer(this);	
+			//GuiContainer guiController = new GuiContainer(this);	
 		}
 		
 		ai = new AIController(this);
@@ -112,7 +112,7 @@ public class Game {
 				for(int i = 0; i < players.size(); i++) {
 					
 					// AI of the NPCs. Every 10-20 seconds a random NPc will move room. Can be extended.
-					this.ai.run(30000);
+					// this.ai.run(30000);
 					
 					// Sets who the current player is.
 					this.currentPlayer = players.get(i);
