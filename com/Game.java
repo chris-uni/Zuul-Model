@@ -67,7 +67,7 @@ public class Game {
 		this.aiCommands = CommandList.getAiCommands("src/commands/ai");
 		
 		// Sets the output mode of the game. For this we will just be outputting to std::console.
-		this.setOutputMode(Mode.GUI);
+		this.setOutputMode(Mode.CONSOLE);
 		
 		// Decides how to handle the commands the user is inputting.
 		commandHandler = new CommandHandler(this);
