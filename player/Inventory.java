@@ -6,7 +6,6 @@
 package player;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import entities.Item;
 import entities.Room;

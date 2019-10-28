@@ -55,7 +55,7 @@ public class Game {
 	private Player currentPlayer;
 	
 	// The AI controller of the game.
-	private AIController ai;
+	private AIController ai = new AIController(this);
 	
 	// Mode of the game, whether its Console/ Gui or Other.
 	private static Mode outputMode;
@@ -67,22 +67,32 @@ public class Game {
 		this.aiCommands = CommandList.getAiCommands("src/commands/ai");
 		
 		// Sets the output mode of the game. For this we will just be outputting to std::console.
-		this.setOutputMode(Mode.CONSOLE);
+		this.setOutputMode(Mode.GUI);
 		
 		// Decides how to handle the commands the user is inputting.
 		commandHandler = new CommandHandler(this);
 		
 		if(outputMode == Mode.GUI) {
 			
-			//GuiContainer guiController = new GuiContainer(this);	
+			GuiContainer guiController = new GuiContainer(this, commandHandler);
+			
+			int number = guiController.setPlayers();
+			
+			// For X, create X number of players.
+			for(int i = 0; i < number; i++) {
+				
+				// Add players to list.
+				this.players.add(new Player());
+			}
+		}
+		else {
+			
+			// First things first, how many players in the game?
+			this.setPlayers();
 		}
 		
-		ai = new AIController(this);
-		
+		// Starts the game in PLAY state.
 		this.gameState = State.PLAY;
-		
-		// First things first, how many players in the game?
-		this.setPlayers();
 		
 		// We know we must have at least one player in the game for it to start, therefore set the current player to be the player at index 0.
 		this.currentPlayer = players.get(0);
@@ -111,7 +121,7 @@ public class Game {
 				// For every player we have in the game, this lets them take in turns.
 				for(int i = 0; i < players.size(); i++) {
 					
-					// AI of the NPCs. Every 10-20 seconds a random NPc will move room. Can be extended.
+					// AI of the NPCs. Every 30-60 seconds a random NPC will move room. Can be extended.
 					// this.ai.run(30000);
 					
 					// Sets who the current player is.
@@ -119,7 +129,8 @@ public class Game {
 					
 					OutputHandler.output("Player " + (i + 1) + "'s turn: \n");
 					
-					commandHandler.handleCommand(outputMode, parser);
+					// The input from the user via the command line.
+					commandHandler.handleCommand(parser.getUserInput(outputMode));
 				}
 			}
 		}
@@ -133,14 +144,17 @@ public class Game {
 	private void setPlayers() {
 		
 		// New console scanner.
-		Scanner scanner = new Scanner(System.in);
+		// Scanner scanner = new Scanner(System.in);
+		try {	
+			
+			OutputHandler.output("How many players do you want playing? ");
 		
-		OutputHandler.output("How many players do you want playing? ");
-		
-		try {
+			Parser p = new Parser();
+			String[] numPlayers = p.getUserInput(outputMode);
+
 			
 			// Tries to convert the users input into a number.
-			int number = Integer.parseInt(scanner.nextLine());
+			int number = Integer.parseInt(numPlayers[0]);
 			
 			// Max of 10 players.
 			if(number <= 10) {

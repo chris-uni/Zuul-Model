@@ -8,6 +8,7 @@ package output;
 
 import com.Game;
 
+import gui.GuiContainer;
 import output.Mode;
 
 public class OutputHandler {
@@ -25,6 +26,7 @@ public class OutputHandler {
 				break;
 			case GUI:
 				
+				GuiContainer.getConsole().append(string + "\n");
 				break;
 		}
 	}

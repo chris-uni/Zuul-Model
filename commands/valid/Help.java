@@ -27,7 +27,7 @@ public class Help implements ICommand{
 		
 		commands.forEach((k, v) -> {
 			
-			OutputHandler.output(k + " - " + v.description());
+			OutputHandler.output(k + " - " + v.description() + "\n");
 		});
 	}
 

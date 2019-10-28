@@ -5,8 +5,11 @@
 
 package parser;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import gui.GuiContainer;
+import output.Mode;
 import output.OutputHandler;
 
 public class Parser {
@@ -21,10 +24,32 @@ public class Parser {
 	/*
 	 * Uses the scanner object to get the users input from the command line.
 	 * */
-	public String[] getUserInput() {
+	public String[] getUserInput(Mode gameMode) throws NoSuchElementException{
 		
-		OutputHandler.output("> ");
-		return this.scanner.nextLine().toLowerCase().split(" ");
+		try {
+			if(gameMode == Mode.CONSOLE) {
+				
+				OutputHandler.output("> ");
+				
+				return this.scanner.nextLine().toLowerCase().split(" ");
+			}
+			else if(gameMode == Mode.GUI){
+				
+				// return GuiContainer.getConsole().getText().toLowerCase().split(" ");
+				
+				// return GuiContainer.getConsole().
+				
+				return null;
+			}
+		}
+		catch(NoSuchElementException e) {
+			
+			OutputHandler.output("You shouldn't be doing that! o.O");
+			
+			return "erorr".split(" ");
+		}
+		
+		return null;
 	}
 	
 	/** When the game is done, we can close the scanner to prevent memory leaks.

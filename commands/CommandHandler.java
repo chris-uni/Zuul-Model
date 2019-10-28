@@ -9,9 +9,7 @@ package commands;
 
 import com.Game;
 
-import output.Mode;
 import output.OutputHandler;
-import parser.Parser;
 
 public class CommandHandler {
 
@@ -28,19 +26,7 @@ public class CommandHandler {
 	 * method within it. We know it will have 'execute' as the command classes all implements an interface 'ICommand' with method execute. 
 	 * 
 	 * If no class is found, for e.g. if the user inputs 'Hello, World', an error message is displayed onto the screen.*/
-	public void handleCommand(Mode gameMode, Parser parser) {
-		
-		String userInput[] = {};
-		
-		if(gameMode == Mode.CONSOLE) {
-			
-			// The input from the user via the command line.
-			userInput = parser.getUserInput();
-		}
-		else if(gameMode == Mode.GUI) {
-			
-			
-		}
+	public void handleCommand(String[] userInput) {
 				
 		// The first word of the users command string. We will be comparing this to the available commands in package commands.valid.
 		// Formats it to match the class name of commands, i.e. first letter is upper-case.
@@ -55,7 +41,7 @@ public class CommandHandler {
 		else {
 			
 			// In the case the the user tries to get funny and input a command that actually isn't in the game, give them an error message.
-			OutputHandler.output("Sorry, I'm not sure what you mean by '" + userInput[0] + "'");
+			OutputHandler.output("\nSorry, I'm not sure what you mean by '" + userInput[0] + "'");
 		}
 	}
 	
