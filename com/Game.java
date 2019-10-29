@@ -110,28 +110,20 @@ public class Game {
 
 		// Main game loop.
 		while(gameState == State.PLAY) {
-			
-			if(gameState == State.PAUSE) {
 				
-				// We will handle this later...
-			}
-			
-			else {
+			// For every player we have in the game, this lets them take in turns.
+			for(int i = 0; i < players.size(); i++) {
 				
-				// For every player we have in the game, this lets them take in turns.
-				for(int i = 0; i < players.size(); i++) {
-					
-					// AI of the NPCs. Every 30-60 seconds a random NPC will move room. Can be extended.
-					// this.ai.run(30000);
-					
-					// Sets who the current player is.
-					this.currentPlayer = players.get(i);
-					
-					OutputHandler.output("Player " + (i + 1) + "'s turn: \n");
-					
-					// The input from the user via the command line.
-					commandHandler.handleCommand(parser.getUserInput(outputMode));
-				}
+				// AI of the NPCs. Every 30-60 seconds a random NPC will move room. Can be extended.
+				// this.ai.run(30000);
+				
+				// Sets who the current player is.
+				this.currentPlayer = players.get(i);
+				
+				OutputHandler.output("Player " + (i + 1) + "'s turn: \n");
+				
+				// The input from the user via the command line.
+				commandHandler.handleCommand(parser.getUserInput(outputMode));
 			}
 		}
 		
